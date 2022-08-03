@@ -1,3 +1,16 @@
 ﻿.place__icon-like {
-
+  width: 22px;
+  height: 19px;
+  background: url(../../../image/icon-like.svg);
+  border: none;
+  align-self: center;
+  margin-right: 30px;
+  transition: opacity 0.5s linear;
+  cursor: pointer;
 }
+
+.place__icon-like:hover {
+  opacity: 0.5;
+}
+
+
