@@ -1,3 +1,15 @@
 ﻿.header {
+  padding: 28px 0 31.6px 27px;
+  border-bottom: 1px solid;
+  border-color: #545454;
+  margin-bottom: 38.35px;
+}
 
+@media (min-width: /*landscape-tablet*/914px) {
+  .header {
+    max-width: 880px;
+    margin: 0 auto;
+    margin-bottom: 36.25px;
+    padding: 45px 0 41px 0;
+  }
 }
