@@ -1,3 +1,14 @@
 ﻿.footer__copyright {
+  font-family: 'Inter';
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  color: #545454;
+}
 
+@media (min-width: /*landscape-phone*/615px) {
+  .footer {
+    font-size: 18px;
+    line-height: 22px;
+  }
 }
