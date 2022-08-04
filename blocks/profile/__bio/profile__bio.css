@@ -1,3 +1,15 @@
 ﻿.profile__bio {
-
+  margin: 0;
+  font-family: 'Inter';
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
 }
+
+@media (min-width: /*landscape-phone*/615px) {
+  .profile__bio {
+    font-size: 18px;
+    line-height: 22px;
+  }
+}
+

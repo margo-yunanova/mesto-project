@@ -1,3 +1,15 @@
 ﻿.profile__edit-button {
+  width: 18px;
+  height: 18px;
+  background: url(../../../image/edit-button.svg) no-repeat;
+  border: 1px solid #FFFFFF;
+  background-position: center;
+  padding: 0;
+}
 
+@media (min-width: /*landscape-phone*/615px) {
+  .profile__edit-button {
+    width: 24px;
+    height: 24px;
+  }
 }

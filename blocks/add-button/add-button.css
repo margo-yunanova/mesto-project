@@ -1,3 +1,18 @@
 ﻿.add-button {
+  width: 282px;
+  height: 50px;
+  border-radius: 2px;
+  background: url(../../image/add-button.svg) no-repeat;
+  border: 2px solid #FFFFFF;
+  background-position: center;
+  padding: 0;
+}
 
+@media (min-width: /*landscape-phone*/615px) {
+  .add-button {
+    align-self: center;
+    width: 150px;
+    height: 50px;
+    margin-left: auto;
+  }
 }
