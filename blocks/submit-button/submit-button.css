@@ -1,0 +1,28 @@
+.submit-button {
+  padding: 0;
+  border: none;
+  background: #000000;
+  border-radius: 2px;
+  width: 100%;
+  height: 46px;
+  font-family: 'Inter';
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+  color: #FFFFFF;
+  cursor: pointer;
+  transition: background-color 0.5s linear;
+}
+
+.submit-button:hover, .submit-button:focus {
+  background-color: #000000CC;
+}
+
+@media (min-width: /*landscape-phone*/615px) {
+  .submit-button {
+    height: 50px;
+    font-size: 18px;
+    line-height: 22px;
+  }
+}

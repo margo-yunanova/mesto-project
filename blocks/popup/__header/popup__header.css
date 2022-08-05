@@ -1,4 +1,10 @@
 .popup__header {
   display: flex;
+  padding: 25px 22px 0;
+}
 
+@media (min-width: /*landscape-phone*/615px) {
+  .popup__header {
+    padding: 34px 36px 0;
+  }
 }

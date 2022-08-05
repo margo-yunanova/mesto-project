@@ -24,3 +24,7 @@
 @import url(../blocks/popup/__header/popup__header.css);
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/footer/__copyright/footer__copyright.css);
+@import url(../blocks/form/form.css);
+@import url(../blocks/form/__profile/form__profile.css);
+@import url(../blocks/form/__item/form__item.css);
+@import url(../blocks/submit-button/submit-button.css);

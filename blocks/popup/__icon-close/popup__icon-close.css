@@ -12,8 +12,8 @@
   transition: opacity 0.5s linear;
 }
 
-.popup__icon-close:hover {
-  opacity: 0.5;
+.popup__icon-close:hover, .popup__icon-close:focus {
+  opacity: 0.6;
 }
 
 

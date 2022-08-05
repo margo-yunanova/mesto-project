@@ -3,6 +3,7 @@
   height: 50px;
   border-radius: 2px;
   background: url(../../image/add-button.svg) no-repeat;
+  background-size: 16px;
   border: 2px solid #FFFFFF;
   background-position: center;
   padding: 0;
@@ -11,7 +12,7 @@
 }
 
 .add-button:hover {
-  opacity: 0.5;
+  opacity: 0.6;
 }
 
 @media (min-width: /*landscape-phone*/615px) {
@@ -20,5 +21,6 @@
     width: 150px;
     height: 50px;
     margin-left: auto;
+    background-size: 22px;
   }
 }

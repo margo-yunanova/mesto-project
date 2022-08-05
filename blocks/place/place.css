@@ -1,9 +1,10 @@
 ﻿.place {
   background-color: #FFFFFF;
   width: 282px;
-  height: 361px;
+  min-height: 361px;
   border-radius: 10px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  align-content: flex-start;
 }

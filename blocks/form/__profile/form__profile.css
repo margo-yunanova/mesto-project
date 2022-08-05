@@ -1,0 +1,15 @@
+.form__profile {
+  margin: 0;
+  padding: 0;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 45px;
+  row-gap: 30px;
+}
+
+@media (min-width: /*landscape-phone*/615px) {
+  .form__profile {
+    padding-bottom: 48px;
+  }
+}

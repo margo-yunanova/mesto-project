@@ -4,10 +4,11 @@
   font-size: 14px;
   line-height: 17px;
   color: #545454;
+  margin: 0;
 }
 
 @media (min-width: /*landscape-phone*/615px) {
-  .footer {
+  .footer__copyright {
     font-size: 18px;
     line-height: 22px;
   }

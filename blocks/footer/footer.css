@@ -7,6 +7,7 @@
 @media (min-width: /*landscape-phone*/615px) {
   .footer {
     width: 581px;
+    padding: 66px 0 60px;
   }
 }
 
