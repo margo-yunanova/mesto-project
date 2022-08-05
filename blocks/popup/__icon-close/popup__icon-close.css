@@ -1,0 +1,27 @@
+.popup__icon-close {
+  width: 20px;
+  height: 20px;
+  background: url(../../../image/icon-close.svg);
+  background-size: cover;
+  padding: 0;
+  border: none;
+  cursor: pointer;
+  position: absolute;
+  top: calc(0px - (20px + 16px));
+  right: 0;
+  transition: opacity 0.5s linear;
+}
+
+.popup__icon-close:hover {
+  opacity: 0.5;
+}
+
+
+@media (min-width: /*landscape-phone*/615px) {
+  .popup__icon-close {
+    width: 32px;
+    height: 32px;
+    top: calc(0px - (32px + 8px));
+    right: calc(0px - (32px + 8px));
+  }
+}
