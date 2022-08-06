@@ -1,9 +1,9 @@
 .form {
-  padding: 75px 22px 25px;
+  padding: 75px 0 25px;
 }
 
 @media (min-width: /*landscape-phone*/615px) {
   .form {
-    padding: 48px 36px 37px;
+    padding: 48px 0 37px;
   }
 }

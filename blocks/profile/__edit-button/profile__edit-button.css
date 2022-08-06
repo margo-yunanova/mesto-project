@@ -1,12 +1,14 @@
 ﻿.profile__edit-button {
   width: 18px;
-  height: 18px;
+  padding: 16px 0 0 0; /* firefox baseline alignment hack*/
   background: url(../../../image/edit-button.svg) no-repeat;
   border: 1px solid #FFFFFF;
   background-position: center;
-  padding: 0;
+  background-size: 7.5px;
   transition: opacity 0.5s linear;
   cursor: pointer;
+  flex-shrink: 0;
+  transform: translateY(-1px);
 }
 
 .profile__edit-button:hover {
@@ -16,6 +18,7 @@
 @media (min-width: /*landscape-phone*/615px) {
   .profile__edit-button {
     width: 24px;
-    height: 24px;
+    padding: 22px 0 0 0;
+    background-size: 10px;
   }
 }

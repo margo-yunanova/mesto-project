@@ -1,0 +1,13 @@
+.profile__name-row {
+  display: flex;
+  align-items: baseline;
+  column-gap: 10px;
+  justify-content: center;
+}
+
+@media (min-width: /*landscape-phone*/615px) {
+  .profile__name-row {
+    column-gap: 19px;
+    justify-content: flex-start;
+  }
+}
