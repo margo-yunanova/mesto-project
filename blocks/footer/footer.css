@@ -1,18 +1,18 @@
 ﻿.footer {
   margin: 0 auto;
   padding: 48px 0 36px;
-  width: 282px;
+  max-width: 282px;
 }
 
 @media (min-width: /*landscape-phone*/615px) {
   .footer {
-    width: 581px;
+    max-width: 581px;
     padding: 66px 0 60px;
   }
 }
 
 @media (min-width: /*landscape-tablet*/914px) {
   .footer {
-    width: 880px;
+    max-width: 880px;
   }
 }

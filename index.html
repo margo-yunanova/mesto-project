@@ -14,61 +14,66 @@
             <img src="./image/header-logo.svg" alt="логотип" class="header__logo">
         </header>
 
-        <section class="profile">
-            <img src="./image/userpic.jpg" alt="аватар" class="profile__userpic">
+        <main>
 
-            <div class="profile__info">
-                <h2 class="profile__name">Жак-Ив Кусто</h2>
-                <button class="profile__edit-button"></button>
+          <section class="profile">
+              <img src="./image/userpic.jpg" alt="аватар" class="profile__userpic">
+
+              <div class="profile__info">
+                <div>
+                  <h1 class="profile__name">Жак-Ив Кусто</h1>
+                  <button class="profile__edit-button" type="button"></button>
+                </div>
                 <p class="profile__bio">Исследователь океана</p>
-            </div>
-            <button class="add-button"></button>
-        </section>
+              </div>
+              <button class="add-button" type="button"></button>
+          </section>
 
-        <section class="places">
-            <div class="place">
-                <img src="./image/karachayevo-cherkesiya.jpg" alt="Храм в Карачаево-Черкесии" class="place__image">
-                <h3 class="place__title">Карачаево-Черкесия</h3>
-                <button class="place__icon-like"></button>
-            </div>
-            <div class="place">
-                <img src="./image/mountain-elbrus.jpg" alt="Гора Эльбрус" class="place__image">
-                <h3 class="place__title">Гора Эльбрус</h3>
-                <button class="place__icon-like place__icon-like_active"></button>
-            </div>
-            <div class="place">
-                <img src="./image/dombai.jpg" alt="Домбай" class="place__image">
-                <h3 class="place__title">Домбай</h3>
-                <button class="place__icon-like place__icon-like_active"></button>
-            </div>
-            <div class="place">
-                <img src="./image/karachayevo-cherkesiya.jpg" alt="Храм в Карачаево-Черкесии" class="place__image">
-                <h3 class="place__title">Карачаево-Черкесия</h3>
-                <button class="place__icon-like place__icon-like_active"></button>
-            </div>
-            <div class="place">
-                <img src="./image/mountain-elbrus.jpg" alt="Гора Эльбрус" class="place__image">
-                <h3 class="place__title">Гора Эльбрус</h3>
-                <button class="place__icon-like place__icon-like_active"></button>
-            </div>
-            <div class="place">
-                <img src="./image/dombai.jpg" alt="Домбай" class="place__image">
-                <h3 class="place__title">Домбай</h3>
-                <button class="place__icon-like place__icon-like_active"></button>
-            </div>
-        </section>
+          <section class="places">
+              <div class="place">
+                  <img src="./image/karachayevo-cherkesiya.jpg" alt="Храм в Карачаево-Черкесии" class="place__image">
+                  <h2 class="place__title">Карачаево-Черкесия</h2>
+                  <button class="place__icon-like" type="button"></button>
+              </div>
+              <div class="place">
+                  <img src="./image/mountain-elbrus.jpg" alt="Гора Эльбрус" class="place__image">
+                  <h2 class="place__title">Гора Эльбрус</h2>
+                  <button class="place__icon-like place__icon-like_active" type="button"></button>
+              </div>
+              <div class="place">
+                  <img src="./image/dombai.jpg" alt="Домбай" class="place__image">
+                  <h2 class="place__title">Домбай</h2>
+                  <button class="place__icon-like place__icon-like_active" type="button"></button>
+              </div>
+              <div class="place">
+                  <img src="./image/karachayevo-cherkesiya.jpg" alt="Храм в Карачаево-Черкесии" class="place__image">
+                  <h2 class="place__title">Карачаево-Черкесия</h2>
+                  <button class="place__icon-like place__icon-like_active" type="button"></button>
+              </div>
+              <div class="place">
+                  <img src="./image/mountain-elbrus.jpg" alt="Гора Эльбрус" class="place__image">
+                  <h2 class="place__title">Гора Эльбрус</h2>
+                  <button class="place__icon-like place__icon-like_active" type="button"></button>
+              </div>
+              <div class="place">
+                  <img src="./image/dombai.jpg" alt="Домбай" class="place__image">
+                  <h2 class="place__title">Домбай</h2>
+                  <button class="place__icon-like place__icon-like_active" type="button"></button>
+              </div>
+          </section>
+        </main>
 
         <footer class="footer">
             <p class="footer__copyright">© 2022 Маргарита Юнанова</p>
         </footer>
 
-        <section class="popup popup_opened">
+        <div class="popup">
           <div class="popup__container">
             <div class="popup__header">
               <h2 class="popup__title">Редактировать профиль</h2>
-              <button class="popup__icon-close"></button>
+              <button class="popup__icon-close" type="button"></button>
             </div>
-            <form class="form">
+            <form class="form" name="form">
               <fieldset class="form__profile">
                 <input type="text" class="form__item form__name" name="username" placeholder="Имя" value="Жак-Ив Кусто">
                 <input type="text" class="form__item form__bio" name="userbio" placeholder="О себе" value="Исследователь океана">
@@ -76,7 +81,7 @@
               <button type="submit" class="submit-button">Сохранить</button>
             </form>
           </div>
-        </section>
+        </div>
     </div>
 </body>
 </html>
