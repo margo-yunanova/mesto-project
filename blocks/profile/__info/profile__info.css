@@ -1,6 +1,5 @@
 ﻿.profile__info {
-  padding-top: 26px;
-  padding-bottom: 32px;
+  padding: 26px 0 32px;
   display: flex;
   flex-direction: column;
   max-width: 100%;

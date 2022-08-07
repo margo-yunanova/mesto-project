@@ -8,8 +8,7 @@
 @media (min-width: /*landscape-tablet*/914px) {
   .header {
     max-width: 880px;
-    margin: 0 auto;
-    margin-bottom: 40px;
+    margin: 0 auto 40px;
     padding: 45px 0 40px 0;
   }
 }

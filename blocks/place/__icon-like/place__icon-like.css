@@ -3,7 +3,6 @@
   height: 19px;
   background: url(../../../image/icon-like.svg);
   border: none;
-  align-self: center;
   transition: opacity 0.5s linear;
   cursor: pointer;
   padding: 0;
