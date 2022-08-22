@@ -1,4 +1,4 @@
-.form__profile {
+.form__fieldset {
   margin: 0;
   padding: 0 0 45px;
   border: none;
@@ -8,7 +8,7 @@
 }
 
 @media (min-width: /*landscape-phone*/615px) {
-  .form__profile {
+  .form__fieldset {
     padding-bottom: 48px;
   }
 }
