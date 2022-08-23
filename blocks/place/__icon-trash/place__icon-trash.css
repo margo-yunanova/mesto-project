@@ -1,0 +1,16 @@
+.place__icon-trash {
+  width: 18px;
+  height: 19px;
+  background: url(../../../image/icon-trash.svg);
+  border: none;
+  transition: opacity 0.5s linear;
+  cursor: pointer;
+  padding: 0;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.place__icon-trash:hover {
+  opacity: 0.5;
+}
