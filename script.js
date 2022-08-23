@@ -1,6 +1,7 @@
 const page = document.querySelector('.page');
 
 const placeLikeButtons = page.querySelectorAll('.place__icon-like');
+const placeTrashButtons = page.querySelectorAll('.place__icon-trash')
 const editProfileButton = page.querySelector('.profile__edit-button');
 const popupCloseButtons = page.querySelectorAll('.popup__icon-close');
 
@@ -17,6 +18,7 @@ const popupImage = page.querySelector('.popup__image');
 const popupSubtitle = page.querySelector('.popup__subtitle');
 
 const placeImages = page.querySelectorAll('.place__image');
+const placeCards = page.querySelectorAll('.place')
 
 function toggleLike(evt) {
   evt.target.classList.toggle('place__icon-like_active');
@@ -24,6 +26,14 @@ function toggleLike(evt) {
 
 for (let i = 0; i < placeLikeButtons.length; i++) {
   placeLikeButtons[i].addEventListener('click', toggleLike);
+}
+
+function deleteCard(evt) {
+  evt.target.closest('.place').remove();
+}
+
+for (let i = 0; i < placeTrashButtons.length; i++) {
+  placeTrashButtons[i].addEventListener('click', deleteCard);
 }
 
 function closePopup(evt) {
