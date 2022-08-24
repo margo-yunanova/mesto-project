@@ -30,49 +30,7 @@
           </section>
 
           <section class="places">
-              <div class="place">
-                  <img src="./image/karachayevo-cherkesiya.jpg" alt="Храм в Карачаево-Черкесии" class="place__image">
-                  <button class="place__icon-trash" type="button" aria-label="корзина"></button>
-                  <div class="place__title-row">
-                    <h2 class="place__title">Карачаево-Черкесия</h2>
-                    <button class="place__icon-like" type="button" aria-label="лайк"></button>
-                  </div>
-              </div>
-              <div class="place">
-                  <img src="./image/mountain-elbrus.jpg" alt="Гора Эльбрус" class="place__image">
-                  <div class="place__title-row">
-                    <h2 class="place__title">Гора Эльбрус</h2>
-                    <button class="place__icon-like" type="button" aria-label="лайк"></button>
-                  </div>
-              </div>
-              <div class="place">
-                  <img src="./image/dombai.jpg" alt="Домбай" class="place__image">
-                  <div class="place__title-row">
-                    <h2 class="place__title">Домбай</h2>
-                    <button class="place__icon-like" type="button" aria-label="лайк"></button>
-                  </div>
-              </div>
-              <div class="place">
-                  <img src="./image/karachayevo-cherkesiya.jpg" alt="Храм в Карачаево-Черкесии" class="place__image">
-                  <div class="place__title-row">
-                    <h2 class="place__title">Карачаево-Черкесия</h2>
-                    <button class="place__icon-like" type="button" aria-label="лайк"></button>
-                  </div>
-              </div>
-              <div class="place">
-                  <img src="./image/mountain-elbrus.jpg" alt="Гора Эльбрус" class="place__image">
-                  <div class="place__title-row">
-                    <h2 class="place__title">Гора Эльбрус</h2>
-                    <button class="place__icon-like" type="button" aria-label="лайк"></button>
-                  </div>
-              </div>
-              <div class="place">
-                  <img src="./image/dombai.jpg" alt="Домбай" class="place__image">
-                  <div class="place__title-row">
-                    <h2 class="place__title">Домбай</h2>
-                    <button class="place__icon-like" type="button" aria-label="лайк"></button>
-                  </div>
-              </div>
+
           </section>
         </main>
 
@@ -115,6 +73,17 @@
             <p class="popup__subtitle">Новое место</p>
           </div>
         </div>
+
+        <template id="place-template">
+          <div class="place">
+            <img src="#" alt="" class="place__image">
+            <button class="place__icon-trash" type="button" aria-label="корзина"></button>
+            <div class="place__title-row">
+              <h2 class="place__title"></h2>
+              <button class="place__icon-like" type="button" aria-label="лайк"></button>
+            </div>
+          </div>
+        </template>
     </div>
     <script src="./script.js"></script>
 </body>
