@@ -17,6 +17,10 @@ function toggleLike(evt) {
   evt.target.classList.toggle('place__icon-like_active');
 }
 
+function deleteCard(evt) {
+  evt.target.closest('.place').remove();
+}
+
 function closePopup(evt) {
   evt.target.closest('.popup').classList.remove('popup_opened');
 }
@@ -69,6 +73,7 @@ function createNewCard(name, link) {
   place.querySelector('.place__title').textContent = name;
   place.querySelector('.place__image').src = link;
   place.querySelector('.place__icon-like').addEventListener('click', toggleLike);
+  place.querySelector('.place__icon-trash').addEventListener('click', deleteCard);
   places.prepend(place);
 }
 
@@ -124,13 +129,3 @@ popupElPlace.querySelector('.form').addEventListener('submit', formPlaceSubmitHa
 
 editProfileButton.addEventListener('click', openPopup);
 addPlaceButton.addEventListener('click', openPopupPlace);
-
-function deleteCard(evt) {
-  evt.target.closest('.place').remove();
-}
-
-for (let i = 0; i < placeTrashButtons.length; i++) {
-  placeTrashButtons[i].addEventListener('click', deleteCard);
-}
-
-const placeTrashButtons = page.querySelectorAll('.place__icon-trash');
