@@ -79,6 +79,7 @@ function createNewCard(name, link) {
   const place = placeElement.cloneNode(true);
   place.querySelector('.place__title').textContent = name;
   place.querySelector('.place__image').src = link;
+  place.querySelector('.place__image').alt = `фотография ${name}`;
   place.querySelector('.place__icon-like').addEventListener('click', toggleLike);
   place.querySelector('.place__icon-trash').addEventListener('click', deleteCard);
   place.querySelector('.place__image').addEventListener('click', expandImage);

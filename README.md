@@ -1,17 +1,31 @@
 # Проект: Место
 
 Проект сайта для изучения для адаптивной вёрстки для 3х размеров экранов:
-  1. 320px,
-  1. 615px,
+  1. 320px;
+  1. 615px;
   1. 914px.
 
+## Первый этап проекта - вёрстка и стили CSS
 
 Для реализации адаптивности использованы медиазапросы.
 Применены технологии флексбокс, БЭМ с файловой структурой nested, CSS calc.
 Реализован модальный диалог с формой редактирования профиля.
 
+## Второй этап проекта - добавление интерактива на сайт на JavaScript
+
+Реализовано открытие и закрытие модальных окон (в том числе отредактированы стили CSS для плавного перехода) по клику на соответствующие кнопки методом `addEventListener`.
+Добавлены функции редактирования профиля и добавления новых карточек.
+Первые шесть карточек загружаются с помощью Javascript из предустановленного массива и были удалены из вёрстки.
+Новая карточка создаётся путём клонирования шаблона и добавляется в начало коллекции.
+Обработка по умолчанию события submit отключена с помощью метода `evt.preventDefault()`.
+Фотографии увеличиваются в размере при клике на них.
+Добавлена возможность лайкать и удалять карточки.
+
 ## Полезные ссылки
 
-1. [Мой проект на Github Pages](https://margo-yunanova.github.io/mesto-project),
-1. [Ссылка на макет в Figma](https://www.figma.com/file/2cn9N9jSkmxD84oJik7xL7/JavaScript.-Sprint-4?node-id=28212%3A155),
-1. [Чеклист](https://code.s3.yandex.net/web-developer/checklists-pdf/web-plus/checklist-3.pdf),
+1. [Мой проект на Github Pages](https://margo-yunanova.github.io/mesto-project);
+1. [Ссылка на макет в Figma для первого этапа](https://www.figma.com/file/2cn9N9jSkmxD84oJik7xL7/JavaScript.-Sprint-4?node-id=28212%3A155);
+1. [Ссылка на макет в Figma для второго этапа](https://www.figma.com/file/bjyvbKKJN2naO0ucURl2Z0/JavaScript.-Sprint-5);
+1. [Чеклист второго этапа](https://code.s3.yandex.net/web-developer/checklists-pdf/web-plus/checklist-4.pdf);
+1. [Техзадание первого этапа](https://code.s3.yandex.net/web-plus/static/second-month/mesto-project/index.html);
+1. [Техзадание второго этапа](https://code.s3.yandex.net/web-plus/static/third-month/mesto-project/index.html).
