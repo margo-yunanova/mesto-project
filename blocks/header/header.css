@@ -3,12 +3,19 @@
   border-bottom: 1px solid;
   border-color: rgba(84, 84, 84, 0.7);
   margin-bottom: 42px;
+  flex-shrink: 0;
+}
+
+@media (min-width: /*landscape-phone*/615px) {
+  .header {
+    min-width: 581px;
+    margin: 0 auto 40px;
+    padding: 45px 0 40px 0;
+  }
 }
 
 @media (min-width: /*landscape-tablet*/914px) {
   .header {
-    max-width: 880px;
-    margin: 0 auto 40px;
-    padding: 45px 0 40px 0;
+    min-width: 880px;
   }
 }
