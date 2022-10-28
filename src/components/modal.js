@@ -4,8 +4,8 @@ import { renderCard, createNewCard } from './card';
 const profileName = page.querySelector('.profile__name');
 const profileBio = page.querySelector('.profile__bio');
 
-const formItemName = page.querySelector('.form__item_el_name');
-const formItemBio = page.querySelector('.form__item_el_bio');
+export const formItemName = page.querySelector('.form__item_el_name');
+export const formItemBio = page.querySelector('.form__item_el_bio');
 
 const popupImage = page.querySelector('.popup__image');
 const popupSubtitle = page.querySelector('.popup__subtitle');
