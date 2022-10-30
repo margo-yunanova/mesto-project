@@ -27,7 +27,9 @@ function openPopup(popup) {
 
 export function openPopupProfile() {
   formItemName.value = profileName.textContent;
+  formItemName.dispatchEvent(new Event('input'));
   formItemBio.value = profileBio.textContent;
+  formItemBio.dispatchEvent(new Event('input'));
   openPopup(popupElProfile);
 }
 
@@ -55,3 +57,18 @@ export function handlePlaceFormSubmit(evt) {
   popupElPlace.querySelector('.form').reset();
   closePopup(popupElPlace);
 }
+
+document.body.addEventListener('keydown', function (evt) {
+  if (evt.key === 'Escape') {
+    const popup = document.querySelector('.popup_opened');
+    if (popup !== null) {
+      closePopup(popup);
+    }
+  }
+});
+
+document.body.addEventListener('click', function (evt) {
+  if (evt.target.classList.contains('popup_opened')) {
+    closePopup(evt.target);
+  }
+});

@@ -1,16 +1,16 @@
 import { page } from './utils';
 
-const showInputError = (formItem, inputItem, errorMessage) => {
+const showInputError = (formItem, inputItem, errorMessage, options) => {
   const errorElement = formItem.querySelector(`.${inputItem.id}-error`);
-  inputItem.classList.add('form__item_type_error');
+  inputItem.classList.add(options.inputErrorClass);
   errorElement.textContent = errorMessage;
-  errorElement.classList.add('form__item-error_active');
+  errorElement.classList.add(options.errorClass);
 };
 
-const hideInputError = (formItem, inputItem) => {
+const hideInputError = (formItem, inputItem, options) => {
   const errorElement = formItem.querySelector(`.${inputItem.id}-error`);
-  inputItem.classList.remove('form__item_type_error');
-  errorElement.classList.remove('form__item-error_active');
+  inputItem.classList.remove(options.inputErrorClass);
+  errorElement.classList.remove(options.errorClass);
   errorElement.textContent = '';
 };
 
@@ -20,49 +20,49 @@ const hasInvalidInput = (inputList) => {
   });
 };
 
-const toggleButtonState = (inputList, buttonItem) => {
+const toggleButtonState = (inputList, buttonItem, options) => {
   if (hasInvalidInput(inputList)) {
-    buttonItem.disable = true;
-    buttonItem.classList.add('form__submit-button_inactive');
+    buttonItem.disabled = true;
+    buttonItem.classList.add(options.inactiveButtonClass);
   } else {
-    buttonItem.disable = false;
-    buttonItem.classList.remove('form__submit-button_inactive');
+    buttonItem.disabled = false;
+    buttonItem.classList.remove(options.inactiveButtonClass);
   }
 }
 
-export const checkInputValidity = (formItem, inputItem) => {
+export const checkInputValidity = (formItem, inputItem, options) => {
   if (inputItem.validity.patternMismatch) {
     inputItem.setCustomValidity(inputItem.dataset.errorMessage);
-  } else if (inputItem.value === '') {
+  } else if (inputItem.validity.valueMissing) {
     inputItem.setCustomValidity('Вы пропустили это поле.')
   } else {
     inputItem.setCustomValidity('');
   }
 
   if (!inputItem.validity.valid) {
-    showInputError(formItem, inputItem, inputItem.validationMessage);
+    showInputError(formItem, inputItem, inputItem.validationMessage, options);
   } else {
-    hideInputError(formItem, inputItem);
+    hideInputError(formItem, inputItem, options);
   }
 };
 
-const setEventListeners = (formItem) => {
-  const inputList = Array.from(formItem.querySelectorAll('.form__item'));
-  const buttonItem = formItem.querySelector('.form__submit-button');
-  toggleButtonState(inputList, buttonItem);
+const setEventListeners = (formItem, options) => {
+  const inputList = Array.from(formItem.querySelectorAll(options.inputSelector));
+  const buttonItem = formItem.querySelector(options.submitButtonSelector);
+  toggleButtonState(inputList, buttonItem, options);
   for (const inputItem of inputList) {
     inputItem.addEventListener('input', () => {
-      checkInputValidity(formItem, inputItem);
-      toggleButtonState(inputList, buttonItem);
+      checkInputValidity(formItem, inputItem, options);
+      toggleButtonState(inputList, buttonItem, options);
     });
   };
 };
 
-export const enableValidation = () => {
-  const formList = Array.from(page.querySelectorAll('.form'));
+export const enableValidation = (options) => {
+  const formList = Array.from(page.querySelectorAll(options.formSelector));
   formList.forEach((formItem) => {
-    setEventListeners(formItem);
-  })
-}
+    setEventListeners(formItem, options);
+  });
+};
 
 

@@ -11,9 +11,9 @@
   transition: border-color 0.5s linear;
 }
 
-.form__item:not(:first-child) {
+/* .form__item:not(:first-child) {
   padding-top: 30px;
-}
+} */
 
 .form__item:focus {
   border-color: #000000;
