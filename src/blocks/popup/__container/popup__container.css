@@ -6,6 +6,7 @@
   box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
   position: relative;
   padding: 25px 22px 0;
+  cursor: auto;
 }
 
 @media (min-width: /*landscape-phone*/615px) {

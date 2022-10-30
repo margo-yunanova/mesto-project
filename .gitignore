@@ -1,3 +1,5 @@
 BEM-Nested-CSS-from-HTML.os
 .vscode
 pixel
+node_modules
+dist

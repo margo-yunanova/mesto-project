@@ -4,20 +4,19 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./pages/index.css">
     <title>Место</title>
 </head>
 <body>
     <div class="page">
 
         <header class="header">
-            <img src="./image/header-logo.svg" alt="логотип" class="header__logo">
+            <img src="<%=require('./image/header-logo.svg')%>" alt="логотип" class="header__logo">
         </header>
 
         <main class="main">
 
           <section class="profile">
-              <img src="./image/userpic.jpg" alt="аватар" class="profile__userpic">
+              <img src="<%=require('./image/userpic.jpg')%>" alt="аватар" class="profile__userpic">
 
               <div class="profile__info">
                 <div class="profile__name-row">
@@ -42,10 +41,12 @@
           <div class="popup__container">
             <h2 class="popup__title">Редактировать профиль</h2>
             <button class="popup__icon-close" type="button" aria-label="закрыть модальное окно"></button>
-            <form class="form" name="form">
+            <form class="form" name="form" novalidate>
               <fieldset class="form__fieldset">
-                <input type="text" class="form__item form__item_el_name" name="username" placeholder="Имя" value="">
-                <input type="text" class="form__item form__item_el_bio" name="userbio" placeholder="О себе" value="">
+                <input id="username" type="text" class="form__item form__item_el_name" name="username" placeholder="Имя" value="" minlength="2" maxlength="40" required pattern="[- a-zA-Zа-яА-Я]+" data-error-message="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы.">
+                <span class="form__item-error username-error" ></span>
+                <input id="userbio" type="text" class="form__item form__item_el_bio" name="userbio" placeholder="О себе" value="" minlength="2" maxlength="200" required pattern="[- a-zA-Zа-яА-Я]+" data-error-message="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы.">
+                <span class="form__item-error userbio-error" ></span>
               </fieldset>
               <button type="submit" class="form__submit-button">Сохранить</button>
             </form>
@@ -58,8 +59,10 @@
             <button class="popup__icon-close" type="button" aria-label="закрыть модальное окно"></button>
             <form class="form" name="form">
               <fieldset class="form__fieldset">
-                <input type="text" class="form__item form__item_el_place-title" name="placetitle" placeholder="Название" value="">
-                <input type="url" class="form__item form__item_el_place-link" name="placelink" placeholder="Ссылка на картинку" value="">
+                <input id="placetitle" type="text" class="form__item form__item_el_place-title" name="placetitle" placeholder="Название" value="" minlength="2" maxlength="30" required pattern="[- a-zA-Zа-яА-Я]+" data-error-message="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы.">
+                <span class="form__item-error placetitle-error" ></span>
+                <input id="placelink" type="url" class="form__item form__item_el_place-link" name="placelink" placeholder="Ссылка на картинку" value="" required data-error-message="Введите адрес сайта.">
+                <span class="form__item-error placelink-error" ></span>
               </fieldset>
               <button type="submit" class="form__submit-button">Сохранить</button>
             </form>
@@ -85,6 +88,6 @@
           </div>
         </template>
     </div>
-    <script src="./script.js"></script>
+    <script type="module" src="./components/index.js"></script>
 </body>
 </html>

@@ -1,0 +1,7 @@
+.form__item_type_error {
+  border-bottom-color: red;
+}
+
+.form__item_type_error:focus {
+  border-color: red;
+}

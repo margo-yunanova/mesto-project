@@ -21,11 +21,23 @@
 Фотографии увеличиваются в размере при клике на них.
 Добавлена возможность лайкать и удалять карточки.
 
+## Третий этап проекта - добавление валидации форм, сборка проекта Webpack
+
+Реализована валидация форм с помощью регулярных выражений для текстовых полей и встроенной браузерной валидации для url-поля.
+Добавлена возможность закрывать модальные окна с помощью клавиши Esc и кликом на оверлей.
+Изменена навигация по проекту - js код поделён на модули, сборку кода выполняет Webpack.
+Настроена минификация и транспиляция JS бабелем и минификация CSS с автоматическим добавлением вендорных префиксов postcss.
+
+
+
+
 ## Полезные ссылки
 
 1. [Мой проект на Github Pages](https://margo-yunanova.github.io/mesto-project);
 1. [Ссылка на макет в Figma для первого этапа](https://www.figma.com/file/2cn9N9jSkmxD84oJik7xL7/JavaScript.-Sprint-4?node-id=28212%3A155);
 1. [Ссылка на макет в Figma для второго этапа](https://www.figma.com/file/bjyvbKKJN2naO0ucURl2Z0/JavaScript.-Sprint-5);
+1. [Ссылка на макет в Figma для третьего этапа](https://www.figma.com/file/kRVLKwYG3d1HGLvh7JFWRT/JavaScript.-Sprint-6?node-id=0%3A1);
 1. [Чеклист второго этапа](https://code.s3.yandex.net/web-developer/checklists-pdf/web-plus/checklist-4.pdf);
 1. [Техзадание первого этапа](https://code.s3.yandex.net/web-plus/static/second-month/mesto-project/index.html);
-1. [Техзадание второго этапа](https://code.s3.yandex.net/web-plus/static/third-month/mesto-project/index.html).
+1. [Техзадание второго этапа](https://code.s3.yandex.net/web-plus/static/third-month/mesto-project/index.html);
+1. [Техзадание третьего этапа](https://code.s3.yandex.net/web-developer/checklists-pdf/web-plus/checklist-8.pdf).
