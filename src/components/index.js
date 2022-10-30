@@ -13,15 +13,11 @@ for (let i = 0; i < popupCloseButtons.length; i++) {
   });
 }
 
-
-
 popupElProfile.querySelector('.form').addEventListener('submit', handleProfileFormSubmit);
 popupElPlace.querySelector('.form').addEventListener('submit', handlePlaceFormSubmit);
 
 editProfileButton.addEventListener('click', openPopupProfile);
 addPlaceButton.addEventListener('click', openPopupPlace);
-
-
 
 enableValidation({
   formSelector: '.form',
