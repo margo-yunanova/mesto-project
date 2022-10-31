@@ -4,6 +4,7 @@
   color: #000000;
   opacity: 0.2;
   transition: none;
+  cursor: auto;
 }
 
 .form__submit-button_inactive:hover, .form__submit-button_inactive:focus {

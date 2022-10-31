@@ -1,5 +1,5 @@
+import { expandImage } from './index'
 import { page } from './utils'
-import { expandImage } from './modal'
 
 const placeContainer = page.querySelector('.places');
 const placeElement = page.querySelector('#place-template').content.querySelector('.place');
@@ -14,12 +14,13 @@ function deleteCard(evt) {
 
 export function createNewCard(name, link) {
   const place = placeElement.cloneNode(true);
+  const placeImage = place.querySelector('.place__image');
   place.querySelector('.place__title').textContent = name;
-  place.querySelector('.place__image').src = link;
-  place.querySelector('.place__image').alt = `фотография ${name}`;
+  placeImage.src = link;
+  placeImage.alt = `фотография ${name}`;
   place.querySelector('.place__icon-like').addEventListener('click', toggleLike);
   place.querySelector('.place__icon-trash').addEventListener('click', deleteCard);
-  place.querySelector('.place__image').addEventListener('click', expandImage);
+  placeImage.addEventListener('click', expandImage);
   return place;
 }
 
