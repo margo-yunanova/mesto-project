@@ -1,74 +1,60 @@
 import { page } from './utils';
-import { renderCard, createNewCard } from './card';
-
-const profileName = page.querySelector('.profile__name');
-const profileBio = page.querySelector('.profile__bio');
 
 export const formItemName = page.querySelector('.form__item_el_name');
 export const formItemBio = page.querySelector('.form__item_el_bio');
 
-const popupImage = page.querySelector('.popup__image');
-const popupSubtitle = page.querySelector('.popup__subtitle');
-
 export const popupElPlace = page.querySelector('.popup_el_place');
 export const popupElProfile = page.querySelector('.popup_el_profile');
-const popupElImage = page.querySelector('.popup_el_image');
 
-const formElPlaceTitle = page.querySelector('.form__item_el_place-title');
-const formElPlaceLink = page.querySelector('.form__item_el_place-link');
+const popupCloseButtons = page.querySelectorAll('.popup__icon-close');
+
+const popups = page.querySelectorAll('.popup')
 
 export function closePopup(popup) {
   popup.classList.remove('popup_opened');
+  document.removeEventListener('keydown', closeByEsc);
+  popup.removeEventListener('click', closeByOverlayClick);
 }
 
-function openPopup(popup) {
+export function openPopup(popup) {
   popup.classList.add('popup_opened');
+  document.addEventListener('keydown', closeByEsc);
 }
 
-export function openPopupProfile() {
-  formItemName.value = profileName.textContent;
-  formItemName.dispatchEvent(new Event('input'));
-  formItemBio.value = profileBio.textContent;
-  formItemBio.dispatchEvent(new Event('input'));
-  openPopup(popupElProfile);
-}
-
-export function expandImage(evt) {
-  popupImage.src = evt.target.src;
-  popupImage.alt = evt.target.alt;
-  popupSubtitle.textContent = evt.target.closest('.place').querySelector('.place__title').textContent;
-  openPopup(popupElImage);
-}
-
-export function openPopupPlace() {
-  openPopup(popupElPlace);
-}
-
-export function handleProfileFormSubmit(evt) {
-  evt.preventDefault();
-  profileName.textContent = formItemName.value;
-  profileBio.textContent = formItemBio.value;
-  closePopup(popupElProfile);
-}
-
-export function handlePlaceFormSubmit(evt) {
-  evt.preventDefault();
-  renderCard(createNewCard(formElPlaceTitle.value, formElPlaceLink.value));
-  popupElPlace.querySelector('.form').reset();
-  closePopup(popupElPlace);
-}
-
-document.body.addEventListener('keydown', function (evt) {
+function closeByEsc(evt) {
   if (evt.key === 'Escape') {
-    const popup = document.querySelector('.popup_opened');
-    if (popup !== null) {
-      closePopup(popup);
-    }
+    const openedPopup = document.querySelector('.popup_opened');
+    closePopup(openedPopup);
   }
-});
+}
 
-document.body.addEventListener('click', function (evt) {
+function closeByOverlayClick(evt) {
   if (evt.target.classList.contains('popup_opened')) {
     closePopup(evt.target);
   }
-});
+}
+
+for (const button of popupCloseButtons) {
+  button.addEventListener('click', function (evt) {
+    closePopup(evt.target.closest('.popup'));
+  });
+}
+
+for (const popup of popups) {
+  popup.addEventListener('click', closeByOverlayClick);
+}
+
+// document.body.addEventListener('keydown', function (evt) {
+//   if (evt.key === 'Escape') {
+//     const popup = document.querySelector('.popup_opened');
+//     if (popup !== null) {
+//       closePopup(popup);
+//     }
+//   }
+// });
+
+// document.body.addEventListener('click', function (evt) {
+//   if (evt.target.classList.contains('popup_opened')) {
+//     closePopup(evt.target);
+//   }
+// });
