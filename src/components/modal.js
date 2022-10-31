@@ -6,7 +6,7 @@ export const formItemBio = page.querySelector('.form__item_el_bio');
 export const popupElPlace = page.querySelector('.popup_el_place');
 export const popupElProfile = page.querySelector('.popup_el_profile');
 
-export const popupCloseButtons = page.querySelectorAll('.popup__icon-close');
+const popupCloseButtons = page.querySelectorAll('.popup__icon-close');
 
 const popups = page.querySelectorAll('.popup')
 
