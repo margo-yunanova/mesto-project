@@ -1,5 +1,5 @@
 import '../pages/index.css'
-import { buttonEditProfile, popupCloseButtons, buttonAddPlace, page } from './utils'
+import { buttonEditProfile, buttonAddPlace, page } from './utils'
 import { addInitialCards, renderCard, createNewCard } from './card'
 import { closePopup, popupElProfile, popupElPlace, openPopup, formItemName, formItemBio} from './modal'
 import { initialCards } from './initialCards'
@@ -31,7 +31,7 @@ const validationOptions = {
 function openPopupProfile() {
   formItemName.value = profileName.textContent;
   formItemBio.value = profileBio.textContent;
-  validateForm(formProfile, validationOptions)
+  validateForm(formProfile, validationOptions);
   openPopup(popupElProfile);
 }
 
@@ -57,20 +57,16 @@ function handleProfileFormSubmit(evt) {
 function handlePlaceFormSubmit(evt) {
   evt.preventDefault();
   renderCard(createNewCard(formElPlaceTitle.value, formElPlaceLink.value));
-  popupElPlace.querySelector('.form').reset();
+  formPlace.reset();
   closePopup(popupElPlace);
 }
 
 addInitialCards(initialCards);
 
-for (let i = 0; i < popupCloseButtons.length; i++) {
-  popupCloseButtons[i].addEventListener('click', function (evt) {
-    closePopup(evt.target.closest('.popup'));
-  });
-}
 
-popupElProfile.querySelector('.form').addEventListener('submit', handleProfileFormSubmit);
-popupElPlace.querySelector('.form').addEventListener('submit', handlePlaceFormSubmit);
+
+formProfile.addEventListener('submit', handleProfileFormSubmit);
+formPlace.addEventListener('submit', handlePlaceFormSubmit);
 
 buttonEditProfile.addEventListener('click', openPopupProfile);
 buttonAddPlace.addEventListener('click', openPopupPlace);
