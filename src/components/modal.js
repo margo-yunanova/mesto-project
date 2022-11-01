@@ -13,7 +13,6 @@ const popups = page.querySelectorAll('.popup')
 export function closePopup(popup) {
   popup.classList.remove('popup_opened');
   document.removeEventListener('keydown', closeByEsc);
-  popup.removeEventListener('click', closeByOverlayClick);
 }
 
 export function openPopup(popup) {
