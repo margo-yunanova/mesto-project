@@ -3,7 +3,7 @@ import { buttonEditProfile, buttonAddPlace, page } from './utils'
 import { addInitialCards, renderCard, createNewCard } from './card'
 import { closePopup, popupElProfile, popupElPlace, openPopup, formItemName, formItemBio} from './modal'
 import { initialCards } from './initialCards'
-import { enableValidation, validateForm } from './validate'
+import { enableValidation, clearError } from './validate'
 
 const profileName = page.querySelector('.profile__name');
 const profileBio = page.querySelector('.profile__bio');
@@ -31,7 +31,7 @@ const validationOptions = {
 function openPopupProfile() {
   formItemName.value = profileName.textContent;
   formItemBio.value = profileBio.textContent;
-  validateForm(formProfile, validationOptions);
+  clearError(popupElProfile, validationOptions);
   openPopup(popupElProfile);
 }
 
@@ -43,7 +43,7 @@ export function expandImage(evt) {
 }
 
 function openPopupPlace() {
-  validateForm(formPlace, validationOptions);
+  clearError(popupElPlace, validationOptions);
   openPopup(popupElPlace);
 }
 
