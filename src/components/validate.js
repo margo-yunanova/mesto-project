@@ -33,12 +33,6 @@ const toggleButtonState = (inputList, buttonItem, options) => {
 export const checkInputValidity = (formItem, inputItem, options) => {
   if (inputItem.validity.patternMismatch) {
     inputItem.setCustomValidity(inputItem.dataset.errorMessage);
-  // Если убирать эту проверку, то в браузерах с иностранной локализацией соообщения
-  // будут на разных языках. На видео в ТЗ явно указано, что для пустых полей нужна фраза
-  // Вы пропустили поле, а сейчас без этой проверки браузерное сообщение другое -
-  // Заполните это поле.
-  // } else if (inputItem.validity.valueMissing) {
-  //   inputItem.setCustomValidity('Вы пропустили это поле.')
   } else {
     inputItem.setCustomValidity('');
   }
@@ -50,11 +44,11 @@ export const checkInputValidity = (formItem, inputItem, options) => {
   }
 };
 
-export const validateForm = (formItem, options) => {
+export const clearError = (formItem, options) => {
   const inputList = Array.from(formItem.querySelectorAll(options.inputSelector));
   const buttonItem = formItem.querySelector(options.submitButtonSelector);
   for (const inputItem of inputList) {
-    checkInputValidity(formItem, inputItem, options);
+    hideInputError(formItem, inputItem, options);
   }
   toggleButtonState(inputList, buttonItem, options);
 }
