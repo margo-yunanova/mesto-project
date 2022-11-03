@@ -1,12 +1,13 @@
 import '../pages/index.css'
+import { getProfile, getInitialCards, pushProfileUpdate, pushNewPlaceCard } from './api'
 import { buttonEditProfile, buttonAddPlace, page } from './utils'
-import { addInitialCards, renderCard, createNewCard } from './card'
+import { renderCard, createNewCard } from './card'
 import { closePopup, popupElProfile, popupElPlace, openPopup, formItemName, formItemBio} from './modal'
-import { initialCards } from './initialCards'
 import { enableValidation, clearError } from './validate'
 
 const profileName = page.querySelector('.profile__name');
 const profileBio = page.querySelector('.profile__bio');
+const profileUserPic = page.querySelector('.profile__userpic');
 
 const popupImage = page.querySelector('.popup__image');
 const popupSubtitle = page.querySelector('.popup__subtitle');
@@ -27,6 +28,12 @@ const validationOptions = {
   inputErrorClass: 'form__item_type_error',
   errorClass: 'form__item-error_active'
 };
+
+function createInitialProfile(name, bio, userPic) {
+  profileName.textContent = name;
+  profileBio.textContent = bio;
+  profileUserPic.src = userPic;
+}
 
 function openPopupProfile() {
   formItemName.value = profileName.textContent;
@@ -51,19 +58,17 @@ function handleProfileFormSubmit(evt) {
   evt.preventDefault();
   profileName.textContent = formItemName.value;
   profileBio.textContent = formItemBio.value;
+  pushProfileUpdate(profileName.textContent, profileBio.textContent);
   closePopup(popupElProfile);
 }
 
 function handlePlaceFormSubmit(evt) {
   evt.preventDefault();
   renderCard(createNewCard(formElPlaceTitle.value, formElPlaceLink.value));
+  pushNewPlaceCard(formElPlaceTitle.value, formElPlaceLink.value);
   formPlace.reset();
   closePopup(popupElPlace);
 }
-
-addInitialCards(initialCards);
-
-
 
 formProfile.addEventListener('submit', handleProfileFormSubmit);
 formPlace.addEventListener('submit', handlePlaceFormSubmit);
@@ -73,3 +78,12 @@ buttonAddPlace.addEventListener('click', openPopupPlace);
 
 enableValidation(validationOptions);
 
+getInitialCards().then(cards => {
+  for (const card of cards) {
+    renderCard(createNewCard(card.name, card.link));
+  }
+})
+
+getProfile().then(profileDatа => {
+  createInitialProfile(profileDatа.name, profileDatа.about, profileDatа.avatar);
+})

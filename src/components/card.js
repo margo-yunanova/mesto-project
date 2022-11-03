@@ -28,8 +28,3 @@ export function renderCard(card) {
   placeContainer.prepend(card);
 }
 
-export function addInitialCards(cards) {
-  for (let i = cards.length - 1; i >= 0; i--) {
-    renderCard(createNewCard(cards[i].name, cards[i].link));
-  }
-}
