@@ -100,12 +100,12 @@ export const deleteLikeCard = (cardId) => {
   })
 }
 
-export const updateUserPic = (userPickLink) => {
-  return fetch('https://nomoreparties.co/v1/cohortId/users/me/avatar', {
+export const updateUserPic = (userPicLink) => {
+  return fetch(`${config.baseUrl}/users/me/avatar`, {
     method: 'PATCH',
     headers: config.headers,
     body: JSON.stringify({
-      'avatar': userPickLink
+      'avatar': userPicLink
     })
   }).then(res => {
     if (res.ok) {

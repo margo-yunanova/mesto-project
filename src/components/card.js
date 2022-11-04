@@ -10,20 +10,31 @@ function toggleLike(evt) {
   const place = evt.target.closest('.place');
   if (evt.target.classList.contains('place__icon-like_active')) {
     deleteLikeCard(place.dataset.id).then(card => {
-      place.querySelector('.place__like-counter').textContent = card.likes.length
-    })
-    evt.target.classList.remove('place__icon-like_active');
+      place.querySelector('.place__like-counter').textContent = card.likes.length;
+      evt.target.classList.remove('place__icon-like_active');
+    }).catch((err) => {
+      console.log(err);
+    });
   } else {
     likeCard(place.dataset.id).then(card => {
-      place.querySelector('.place__like-counter').textContent = card.likes.length
-    })
-    evt.target.classList.add('place__icon-like_active');
+      place.querySelector('.place__like-counter').textContent = card.likes.length;
+      evt.target.classList.add('place__icon-like_active');
+    }).catch((err) => {
+      console.log(err);
+    });
   }
 }
 
 function deleteCard(evt) {
-  deletePlaceCard(evt.target.closest('.place').dataset.id);
-  evt.target.closest('.place').remove();
+  deletePlaceCard(evt.target.closest('.place').dataset.id).then(() => {
+    deleteCardFromMarkup(evt.target.closest('.place'));
+  }).catch((err) => {
+    console.log(err);
+  });
+}
+
+function deleteCardFromMarkup (cardElement) {
+  cardElement.remove();
 }
 
 export function createNewCard(card, isMyCard) {
