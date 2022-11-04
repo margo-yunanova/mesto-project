@@ -22,6 +22,7 @@ export const getInitialCards = () => {
     headers: config.headers
   }).then(res => {
     if (res.ok) {
+      //console.log(res.json())
       return res.json();
     }
     return Promise.reject(`Ошибка: ${res.status}`);
@@ -60,8 +61,34 @@ export const pushNewPlaceCard = (placeName, placeLink) => {
   }).then(newPlaceCard => console.log(newPlaceCard));
 }
 
-export const deletePlaceCard = (cardsId) => {
-  fetch(`${config.baseUrl}/cards/${cardsId}`, {
+export const deletePlaceCard = (cardId) => {
+  fetch(`${config.baseUrl}/cards/${cardId}`, {
+    method: 'DELETE',
+    headers: config.headers,
+  }).then(res => {
+    if (res.ok) {
+      //console.log(res.json())
+      return res.json();
+    }
+    return Promise.reject(`Ошибка: ${res.status}`);
+  })
+}
+
+export const likeCard = (cardId) => {
+  fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
+    method: 'PUT',
+    headers: config.headers,
+  }).then(res => {
+    if (res.ok) {
+      //console.log(res.json())
+      return res.json();
+    }
+    return Promise.reject(`Ошибка: ${res.status}`);
+  })
+}
+
+export const deleteLikeCard = (cardId) => {
+  fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
     method: 'DELETE',
     headers: config.headers,
   }).then(res => {

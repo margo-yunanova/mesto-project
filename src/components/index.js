@@ -64,8 +64,9 @@ function handleProfileFormSubmit(evt) {
 
 function handlePlaceFormSubmit(evt) {
   evt.preventDefault();
-  renderCard(createNewCard(formElPlaceTitle.value, formElPlaceLink.value));
-  pushNewPlaceCard(formElPlaceTitle.value, formElPlaceLink.value);
+  pushNewPlaceCard(formElPlaceTitle.value, formElPlaceLink.value).then(card => {
+    renderCard(createNewCard(card, true));
+  })
   formPlace.reset();
   closePopup(popupElPlace);
 }
@@ -78,15 +79,10 @@ buttonAddPlace.addEventListener('click', openPopupPlace);
 
 enableValidation(validationOptions);
 
-getInitialCards().then(cards => {
-  for (const card of cards) {
-    renderCard(createNewCard(card.name, card.link));
-    if (card.owner._id !== "7cd7b40e3ac17a1c0fdb2ff6") {
-      page.querySelector('.place__icon-trash').classList.add('place__icon-trash_inactive')
-    }
-  }
-})
-
 getProfile().then(profileDatа => {
   createInitialProfile(profileDatа.name, profileDatа.about, profileDatа.avatar);
-})
+  getInitialCards().then(cards => {
+    for (const card of cards) {
+      renderCard(createNewCard(card, card.owner._id === profileDatа._id ));
+    }
+  })})

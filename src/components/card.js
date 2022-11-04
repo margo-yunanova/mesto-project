@@ -20,12 +20,18 @@ function deleteCard(evt) {
   evt.target.closest('.place').remove();
 }
 
-export function createNewCard(name, link) {
+export function createNewCard(card, isMyCard) {
   const place = placeElement.cloneNode(true);
   const placeImage = place.querySelector('.place__image');
-  place.querySelector('.place__title').textContent = name;
-  placeImage.src = link;
-  placeImage.alt = `фотография ${name}`;
+  const placeLikeCounter = place.querySelector('.place__like-counter');
+  place.querySelector('.place__title').textContent = card.name;
+  placeImage.src = card.link;
+  placeImage.alt = `фотография ${card.name}`;
+  place.id = `${card._id}`;
+  placeLikeCounter.textContent = card.likes.length;
+  if (!isMyCard) {
+    place.querySelector('.place__icon-trash').classList.add('place__icon-trash_inactive');
+  }
   place.querySelector('.place__icon-like').addEventListener('click', toggleLike);
   place.querySelector('.place__icon-trash').addEventListener('click', deleteCard);
   placeImage.addEventListener('click', expandImage);
