@@ -2,12 +2,13 @@ import '../pages/index.css'
 import { getProfile, getInitialCards, pushProfileUpdate, pushNewPlaceCard } from './api'
 import { buttonEditProfile, buttonAddPlace, page } from './utils'
 import { renderCard, createNewCard } from './card'
-import { closePopup, popupElProfile, popupElPlace, openPopup, formItemName, formItemBio } from './modal'
+import { closePopup, popupElProfile, popupElPlace, popupEditUserPic, openPopup, formItemName, formItemBio } from './modal'
 import { enableValidation, clearError } from './validate'
 
 const profileName = page.querySelector('.profile__name');
 const profileBio = page.querySelector('.profile__bio');
 const profileUserPic = page.querySelector('.profile__userpic');
+const profileEditUserPic = page.querySelector('.profile__edit-userpic');
 
 const popupImage = page.querySelector('.popup__image');
 const popupSubtitle = page.querySelector('.popup__subtitle');
@@ -16,9 +17,11 @@ const popupElImage = page.querySelector('.popup_el_image');
 
 const formElPlaceTitle = page.querySelector('.form__item_el_place-title');
 const formElPlaceLink = page.querySelector('.form__item_el_place-link');
+const formElUserPicLink = page.querySelector('.form__item_el_user-pic-link');
 
 const formProfile = page.querySelector('.popup_el_profile .form');
 const formPlace = page.querySelector('.popup_el_place .form');
+const formChangeAvatar = page.querySelector('.popup_el_user-pic .form');
 
 const validationOptions = {
   formSelector: '.form',
@@ -40,6 +43,10 @@ function openPopupProfile() {
   formItemBio.value = profileBio.textContent;
   clearError(popupElProfile, validationOptions);
   openPopup(popupElProfile);
+}
+
+function openEditUserPic() {
+  openPopup(popupEditUserPic);
 }
 
 export function expandImage(evt) {
@@ -71,11 +78,20 @@ function handlePlaceFormSubmit(evt) {
   closePopup(popupElPlace);
 }
 
+function handleUserPicSubmit(evt) {
+  evt.preventDefault();
+  updateUserPic(formElUserPicLink.value)
+  closePopup(popupEditUserPic);
+}
+
 formProfile.addEventListener('submit', handleProfileFormSubmit);
 formPlace.addEventListener('submit', handlePlaceFormSubmit);
+formChangeAvatar.addEventListener('submit', handleUserPicSubmit)
 
 buttonEditProfile.addEventListener('click', openPopupProfile);
 buttonAddPlace.addEventListener('click', openPopupPlace);
+
+profileEditUserPic.addEventListener('click', openEditUserPic);
 
 enableValidation(validationOptions);
 

@@ -99,3 +99,19 @@ export const deleteLikeCard = (cardId) => {
     return Promise.reject(`Ошибка: ${res.status}`);
   })
 }
+
+export const updateUserPic = (userPickLink) => {
+  fetch('https://nomoreparties.co/v1/cohortId/users/me/avatar', {
+    method: 'PATCH',
+    headers: config.headers,
+    body: JSON.stringify({
+      'avatar': userPickLink
+    })
+  }).then(res => {
+    if (res.ok) {
+      //console.log(res.json())
+      return res.json();
+    }
+    return Promise.reject(`Ошибка: ${res.status}`);
+  })
+}
