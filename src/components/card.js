@@ -1,22 +1,28 @@
 import { expandImage } from './index'
 import { page } from './utils'
-import { getInitialCards, deletePlaceCard } from './api'
+import { likeCard, deleteLikeCard, deletePlaceCard } from './api'
+
 
 const placeContainer = page.querySelector('.places');
 const placeElement = page.querySelector('#place-template').content.querySelector('.place');
 
 function toggleLike(evt) {
-  evt.target.classList.toggle('place__icon-like_active');
+  const place = evt.target.closest('.place');
+  if (evt.target.classList.contains('place__icon-like_active')) {
+    deleteLikeCard(place.id).then(card => {
+      place.querySelector('.place__like-counter').textContent = card.likes.length
+    })
+    evt.target.classList.remove('place__icon-like_active');
+  } else {
+    likeCard(place.id).then(card => {
+      place.querySelector('.place__like-counter').textContent = card.likes.length
+    })
+    evt.target.classList.add('place__icon-like_active');
+  }
 }
 
 function deleteCard(evt) {
-  getInitialCards().then(cards => {
-    for (const card of cards) {
-      if (card.link === evt.target.closest('.place').querySelector('.place__image').src) {
-        deletePlaceCard(card._id)
-      }
-    }
-  })
+  deletePlaceCard(evt.target.closest('.place').id);
   evt.target.closest('.place').remove();
 }
 

@@ -30,7 +30,7 @@ export const getInitialCards = () => {
 }
 
 export const pushProfileUpdate = (profileName, profileBio) => {
-  fetch(`${config.baseUrl}/users/me`, {
+ return fetch(`${config.baseUrl}/users/me`, {
     method: 'PATCH',
     headers: config.headers,
     body: JSON.stringify({
@@ -46,7 +46,7 @@ export const pushProfileUpdate = (profileName, profileBio) => {
 }
 
 export const pushNewPlaceCard = (placeName, placeLink) => {
-  fetch(`${config.baseUrl}/cards`, {
+  return fetch(`${config.baseUrl}/cards`, {
     method: 'POST',
     headers: config.headers,
     body: JSON.stringify({
@@ -62,7 +62,7 @@ export const pushNewPlaceCard = (placeName, placeLink) => {
 }
 
 export const deletePlaceCard = (cardId) => {
-  fetch(`${config.baseUrl}/cards/${cardId}`, {
+  return fetch(`${config.baseUrl}/cards/${cardId}`, {
     method: 'DELETE',
     headers: config.headers,
   }).then(res => {
@@ -75,7 +75,7 @@ export const deletePlaceCard = (cardId) => {
 }
 
 export const likeCard = (cardId) => {
-  fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
+  return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
     method: 'PUT',
     headers: config.headers,
   }).then(res => {
@@ -88,7 +88,7 @@ export const likeCard = (cardId) => {
 }
 
 export const deleteLikeCard = (cardId) => {
-  fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
+  return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
     method: 'DELETE',
     headers: config.headers,
   }).then(res => {
@@ -101,7 +101,7 @@ export const deleteLikeCard = (cardId) => {
 }
 
 export const updateUserPic = (userPickLink) => {
-  fetch('https://nomoreparties.co/v1/cohortId/users/me/avatar', {
+  return fetch('https://nomoreparties.co/v1/cohortId/users/me/avatar', {
     method: 'PATCH',
     headers: config.headers,
     body: JSON.stringify({
