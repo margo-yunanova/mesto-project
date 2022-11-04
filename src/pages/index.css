@@ -12,13 +12,17 @@
 @import url(../blocks/profile/__edit-button/profile__edit-button.css);
 @import url(../blocks/profile/__bio/profile__bio.css);
 @import url(../blocks/profile/__add-button/profile__add-button.css);
+@import url(../blocks/profile/__edit-userpic/profile__edit-userpic.css);
 @import url(../blocks/places/places.css);
 @import url(../blocks/place/place.css);
 @import url(../blocks/place/__image/place__image.css);
 @import url(../blocks/place/__title/place__title.css);
 @import url(../blocks/place/__icon-like/place__icon-like.css);
 @import url(../blocks/place/__icon-like/_active/place__icon-like_active.css);
+@import url(../blocks/place/__like-container/place__like-container.css);
+@import url(../blocks/place/__like-counter/place__like-counter.css);
 @import url(../blocks/place/__icon-trash/place__icon-trash.css);
+@import url(../blocks/place/__icon-trash/_inactive/place__icon-trash_inactive.css);
 @import url(../blocks/place/__title-row/place__title-row.css);
 @import url(../blocks/popup/popup.css);
 @import url(../blocks/popup/_el/popup_el_image.css);

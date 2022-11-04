@@ -1,12 +1,14 @@
 import '../pages/index.css'
+import { getProfile, getInitialCards, pushProfileUpdate, pushNewPlaceCard, updateUserPic } from './api'
 import { buttonEditProfile, buttonAddPlace, page } from './utils'
-import { addInitialCards, renderCard, createNewCard } from './card'
-import { closePopup, popupElProfile, popupElPlace, openPopup, formItemName, formItemBio} from './modal'
-import { initialCards } from './initialCards'
+import { renderCard, createNewCard } from './card'
+import { closePopup, popupElProfile, popupElPlace, popupEditUserPic, openPopup, formItemName, formItemBio } from './modal'
 import { enableValidation, clearError } from './validate'
 
 const profileName = page.querySelector('.profile__name');
 const profileBio = page.querySelector('.profile__bio');
+const profileUserPic = page.querySelector('.profile__userpic');
+const profileEditUserPic = page.querySelector('.profile__edit-userpic');
 
 const popupImage = page.querySelector('.popup__image');
 const popupSubtitle = page.querySelector('.popup__subtitle');
@@ -15,9 +17,13 @@ const popupElImage = page.querySelector('.popup_el_image');
 
 const formElPlaceTitle = page.querySelector('.form__item_el_place-title');
 const formElPlaceLink = page.querySelector('.form__item_el_place-link');
+const formElUserPicLink = page.querySelector('.form__item_el_user-pic-link');
 
 const formProfile = page.querySelector('.popup_el_profile .form');
 const formPlace = page.querySelector('.popup_el_place .form');
+const formChangeAvatar = page.querySelector('.popup_el_user-pic .form');
+
+
 
 const validationOptions = {
   formSelector: '.form',
@@ -28,11 +34,21 @@ const validationOptions = {
   errorClass: 'form__item-error_active'
 };
 
+function createInitialProfile(name, bio, userPic) {
+  profileName.textContent = name;
+  profileBio.textContent = bio;
+  profileUserPic.src = userPic;
+}
+
 function openPopupProfile() {
   formItemName.value = profileName.textContent;
   formItemBio.value = profileBio.textContent;
   clearError(popupElProfile, validationOptions);
   openPopup(popupElProfile);
+}
+
+function openEditUserPic() {
+  openPopup(popupEditUserPic);
 }
 
 export function expandImage(evt) {
@@ -49,27 +65,72 @@ function openPopupPlace() {
 
 function handleProfileFormSubmit(evt) {
   evt.preventDefault();
+  const buttonSubmit = evt.target.querySelector('.form__submit-button');
   profileName.textContent = formItemName.value;
   profileBio.textContent = formItemBio.value;
-  closePopup(popupElProfile);
+  buttonSubmit.textContent = 'Сохранение...';
+  pushProfileUpdate(profileName.textContent, profileBio.textContent).then(profile => {
+    buttonSubmit.textContent = 'Сохранение';
+    closePopup(popupElProfile);
+  }).catch((err) => {
+    console.log(err);
+    buttonSubmit.textContent = 'Сохранение';
+    closePopup(popupElProfile);
+  });
 }
 
 function handlePlaceFormSubmit(evt) {
   evt.preventDefault();
-  renderCard(createNewCard(formElPlaceTitle.value, formElPlaceLink.value));
-  formPlace.reset();
-  closePopup(popupElPlace);
+  const buttonSubmit = evt.target.querySelector('.form__submit-button');
+  buttonSubmit.textContent = 'Сохранение...';
+  pushNewPlaceCard(formElPlaceTitle.value, formElPlaceLink.value).then(card => {
+    renderCard(createNewCard(card, true));
+    buttonSubmit.textContent = 'Сохранение';
+    closePopup(popupElPlace);
+    formPlace.reset();
+  }).catch((err) => {
+    console.log(err);
+    buttonSubmit.textContent = 'Сохранение';
+    closePopup(popupElPlace);
+    formPlace.reset();
+  });
 }
 
-addInitialCards(initialCards);
-
-
+function handleUserPicSubmit(evt) {
+  evt.preventDefault();
+  const buttonSubmit = evt.target.querySelector('.form__submit-button');
+  buttonSubmit.textContent = 'Сохранение...';
+  updateUserPic(formElUserPicLink.value).then(profile => {
+    buttonSubmit.textContent = 'Сохранение';
+    profileUserPic.src = profile.avatar;
+    closePopup(popupEditUserPic);
+  }).catch((err) => {
+    console.log(err);
+    buttonSubmit.textContent = 'Сохранение';
+    closePopup(popupEditUserPic);
+  });
+}
 
 formProfile.addEventListener('submit', handleProfileFormSubmit);
 formPlace.addEventListener('submit', handlePlaceFormSubmit);
+formChangeAvatar.addEventListener('submit', handleUserPicSubmit)
 
 buttonEditProfile.addEventListener('click', openPopupProfile);
 buttonAddPlace.addEventListener('click', openPopupPlace);
 
+profileEditUserPic.addEventListener('click', openEditUserPic);
+
 enableValidation(validationOptions);
 
+getProfile().then(profileDatа => {
+  createInitialProfile(profileDatа.name, profileDatа.about, profileDatа.avatar);
+  getInitialCards().then(cards => {
+    for (const card of cards) {
+      renderCard(createNewCard(card, card.owner._id === profileDatа._id));
+    }
+  }).catch((err) => {
+    console.log(err);
+  });
+}).catch((err) => {
+  console.log(err);
+});

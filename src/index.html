@@ -16,14 +16,14 @@
         <main class="main">
 
           <section class="profile">
-              <img src="<%=require('./image/userpic.jpg')%>" alt="аватар" class="profile__userpic">
-
+              <img src="#" alt="аватар" class="profile__userpic">
+              <button class="profile__edit-userpic" type="button" aria-label="редактировать аватар"></button>
               <div class="profile__info">
                 <div class="profile__name-row">
-                  <h1 class="profile__name">Жак-Ив Кусто</h1>
+                  <h1 class="profile__name"></h1>
                   <button class="profile__edit-button" type="button" aria-label="редактировать профиль"></button>
                 </div>
-                <p class="profile__bio">Исследователь океана</p>
+                <p class="profile__bio"></p>
               </div>
               <button class="profile__add-button" type="button" aria-label="добавить место"></button>
           </section>
@@ -69,6 +69,20 @@
           </div>
         </div>
 
+        <div class="popup popup_el_user-pic">
+          <div class="popup__container">
+            <h2 class="popup__title">Обновить аватар</h2>
+            <button class="popup__icon-close" type="button" aria-label="закрыть модальное окно"></button>
+            <form class="form" name="form" novalidate>
+              <fieldset class="form__fieldset">
+                <input id="user-pic-link" type="url" class="form__item form__item_el_user-pic-link" name="user-pic-link" placeholder="Ссылка на картинку" value="" required data-error-message="Введите URL картинки.">
+                <span class="form__item-error user-pic-link-error" ></span>
+              </fieldset>
+              <button type="submit" class="form__submit-button">Сохранить</button>
+            </form>
+          </div>
+        </div>
+
         <div class="popup popup_el_image">
           <div class="popup__image-container">
             <button class="popup__icon-close" type="button" aria-label="закрыть модальное окно"></button>
@@ -83,7 +97,10 @@
             <button class="place__icon-trash" type="button" aria-label="корзина"></button>
             <div class="place__title-row">
               <h2 class="place__title"></h2>
-              <button class="place__icon-like" type="button" aria-label="лайк"></button>
+              <div class="place__like-container">
+                <button class="place__icon-like" type="button" aria-label="лайк"></button>
+                <span class="place__like-counter"></span>
+              </div>
             </div>
           </div>
         </template>
