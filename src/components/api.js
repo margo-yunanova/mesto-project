@@ -58,7 +58,7 @@ export const pushNewPlaceCard = (placeName, placeLink) => {
       return res.json();
     }
     return Promise.reject(`Ошибка: ${res.status}`);
-  }).then(newPlaceCard => console.log(newPlaceCard));
+  });
 }
 
 export const deletePlaceCard = (cardId) => {
