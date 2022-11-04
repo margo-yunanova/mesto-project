@@ -1,5 +1,6 @@
 import { expandImage } from './index'
 import { page } from './utils'
+import { getInitialCards, deletePlaceCard } from './api'
 
 const placeContainer = page.querySelector('.places');
 const placeElement = page.querySelector('#place-template').content.querySelector('.place');
@@ -9,6 +10,13 @@ function toggleLike(evt) {
 }
 
 function deleteCard(evt) {
+  getInitialCards().then(cards => {
+    for (const card of cards) {
+      if (card.link === evt.target.closest('.place').querySelector('.place__image').src) {
+        deletePlaceCard(card._id)
+      }
+    }
+  })
   evt.target.closest('.place').remove();
 }
 

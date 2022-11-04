@@ -2,7 +2,7 @@ import '../pages/index.css'
 import { getProfile, getInitialCards, pushProfileUpdate, pushNewPlaceCard } from './api'
 import { buttonEditProfile, buttonAddPlace, page } from './utils'
 import { renderCard, createNewCard } from './card'
-import { closePopup, popupElProfile, popupElPlace, openPopup, formItemName, formItemBio} from './modal'
+import { closePopup, popupElProfile, popupElPlace, openPopup, formItemName, formItemBio } from './modal'
 import { enableValidation, clearError } from './validate'
 
 const profileName = page.querySelector('.profile__name');
@@ -81,6 +81,9 @@ enableValidation(validationOptions);
 getInitialCards().then(cards => {
   for (const card of cards) {
     renderCard(createNewCard(card.name, card.link));
+    if (card.owner._id !== "7cd7b40e3ac17a1c0fdb2ff6") {
+      page.querySelector('.place__icon-trash').classList.add('place__icon-trash_inactive')
+    }
   }
 })
 

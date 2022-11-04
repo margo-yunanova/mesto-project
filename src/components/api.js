@@ -59,3 +59,16 @@ export const pushNewPlaceCard = (placeName, placeLink) => {
     return Promise.reject(`Ошибка: ${res.status}`);
   }).then(newPlaceCard => console.log(newPlaceCard));
 }
+
+export const deletePlaceCard = (cardsId) => {
+  fetch(`${config.baseUrl}/cards/${cardsId}`, {
+    method: 'DELETE',
+    headers: config.headers,
+  }).then(res => {
+    if (res.ok) {
+      //console.log(res.json())
+      return res.json();
+    }
+    return Promise.reject(`Ошибка: ${res.status}`);
+  })
+}
