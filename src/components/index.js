@@ -117,7 +117,7 @@ profileEditUserPic.addEventListener('click', openEditUserPic);
 enableValidation(validationOptions);
 
 getProfile().then(profileDatа => {
-  console.log(profileDatа)
+  //console.log(profileDatа)
   createInitialProfile(profileDatа.name, profileDatа.about, profileDatа.avatar);
   getInitialCards().then(cards => {
     for (const card of cards) {
