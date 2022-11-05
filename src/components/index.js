@@ -23,8 +23,6 @@ const formProfile = page.querySelector('.popup_el_profile .form');
 const formPlace = page.querySelector('.popup_el_place .form');
 const formChangeAvatar = page.querySelector('.popup_el_user-pic .form');
 
-
-
 const validationOptions = {
   formSelector: '.form',
   inputSelector: '.form__item',
@@ -70,13 +68,11 @@ function handleProfileFormSubmit(evt) {
   pushProfileUpdate(formItemName.value, formItemBio.value).then(profile => {
     profileName.textContent = profile.name;
     profileBio.textContent = profile.about;
-    buttonSubmit.textContent = 'Сохранение';
     closePopup(popupElProfile);
   }).catch((err) => {
     console.log(err);
   }).finally(() => {
-    buttonSubmit.textContent = 'Сохранение';
-    //closePopup(popupElProfile);
+    buttonSubmit.textContent = 'Сохранение'
   });
 }
 
@@ -86,15 +82,12 @@ function handlePlaceFormSubmit(evt) {
   buttonSubmit.textContent = 'Сохранение...';
   pushNewPlaceCard(formElPlaceTitle.value, formElPlaceLink.value).then(card => {
     renderCard(createNewCard(card, true));
-    buttonSubmit.textContent = 'Сохранение';
     closePopup(popupElPlace);
     formPlace.reset();
   }).catch((err) => {
     console.log(err);
   }).finally(() => {
     buttonSubmit.textContent = 'Сохранение';
-    // closePopup(popupElPlace);
-    formPlace.reset();
   });
 }
 
@@ -103,14 +96,12 @@ function handleUserPicSubmit(evt) {
   const buttonSubmit = evt.target.querySelector('.form__submit-button');
   buttonSubmit.textContent = 'Сохранение...';
   updateUserPic(formElUserPicLink.value).then(profile => {
-    buttonSubmit.textContent = 'Сохранение';
     profileUserPic.src = profile.avatar;
     closePopup(popupEditUserPic);
   }).catch((err) => {
     console.log(err);
   }).finally(() => {
     buttonSubmit.textContent = 'Сохранение';
-    // closePopup(popupEditUserPic);
   });
 }
 
@@ -138,19 +129,3 @@ getProfile().then(profileDatа => {
 }).catch((err) => {
   console.log(err);
 });
-
-
-
-// Promise.all([getProfile(), getInitialCards()])
-//   .then(res => {
-//      {name, about, avatar}, {owner}  = res;
-//   })// тут деструктурируете ответ от сервера, чтобы было понятнее, что пришло
-//   .then(([profileDatа, cards]) => {
-//       сreateInitialProfile(profileDatа.name, profileDatа.about, profileDatа.avatar); // тут установка данных пользователя
-//       for (const card of cards) {
-//         renderCard(createNewCard(card, card.owner._id === profileDatа._id)); // и тут отрисовка карточек
-//       }
-//   })
-//   .catch(err => {
-//     console.log(err); // тут ловим ошибку
-//   });
