@@ -1,9 +1,9 @@
-import '../pages/index.css'
-import { getProfile, getInitialCards, pushProfileUpdate, pushNewPlaceCard, updateUserPic } from './api'
-import { buttonEditProfile, buttonAddPlace, page } from './utils'
-import { renderCard, createNewCard } from './card'
-import { closePopup, popupElProfile, popupElPlace, popupEditUserPic, openPopup, formItemName, formItemBio } from './modal'
-import { enableValidation, clearError } from './validate'
+import '../pages/index.css';
+import { getProfile, getInitialCards, pushProfileUpdate, pushNewPlaceCard, updateUserPic } from './api';
+import { buttonEditProfile, buttonAddPlace, page } from './utils';
+import { renderCard, createNewCard } from './card';
+import { closePopup, popupElProfile, popupElPlace, popupEditUserPic, openPopup, formItemName, formItemBio } from './modal';
+import { enableValidation, clearError } from './validate';
 
 const profileName = page.querySelector('.profile__name');
 const profileBio = page.querySelector('.profile__bio');
@@ -22,8 +22,6 @@ const formElUserPicLink = page.querySelector('.form__item_el_user-pic-link');
 const formProfile = page.querySelector('.popup_el_profile .form');
 const formPlace = page.querySelector('.popup_el_place .form');
 const formChangeAvatar = page.querySelector('.popup_el_user-pic .form');
-
-
 
 const validationOptions = {
   formSelector: '.form',
@@ -65,34 +63,31 @@ function openPopupPlace() {
 
 function handleProfileFormSubmit(evt) {
   evt.preventDefault();
-  const buttonSubmit = evt.target.querySelector('.form__submit-button');
-  profileName.textContent = formItemName.value;
-  profileBio.textContent = formItemBio.value;
+  const buttonSubmit = evt.submitter;
   buttonSubmit.textContent = 'Сохранение...';
-  pushProfileUpdate(profileName.textContent, profileBio.textContent).then(profile => {
-    buttonSubmit.textContent = 'Сохранение';
+  pushProfileUpdate(formItemName.value, formItemBio.value).then(profile => {
+    profileName.textContent = profile.name;
+    profileBio.textContent = profile.about;
     closePopup(popupElProfile);
   }).catch((err) => {
     console.log(err);
-    buttonSubmit.textContent = 'Сохранение';
-    closePopup(popupElProfile);
+  }).finally(() => {
+    buttonSubmit.textContent = 'Сохранение'
   });
 }
 
 function handlePlaceFormSubmit(evt) {
   evt.preventDefault();
-  const buttonSubmit = evt.target.querySelector('.form__submit-button');
+  const buttonSubmit = evt.submitter;
   buttonSubmit.textContent = 'Сохранение...';
   pushNewPlaceCard(formElPlaceTitle.value, formElPlaceLink.value).then(card => {
     renderCard(createNewCard(card, true));
-    buttonSubmit.textContent = 'Сохранение';
     closePopup(popupElPlace);
     formPlace.reset();
   }).catch((err) => {
     console.log(err);
+  }).finally(() => {
     buttonSubmit.textContent = 'Сохранение';
-    closePopup(popupElPlace);
-    formPlace.reset();
   });
 }
 
@@ -101,19 +96,18 @@ function handleUserPicSubmit(evt) {
   const buttonSubmit = evt.target.querySelector('.form__submit-button');
   buttonSubmit.textContent = 'Сохранение...';
   updateUserPic(formElUserPicLink.value).then(profile => {
-    buttonSubmit.textContent = 'Сохранение';
     profileUserPic.src = profile.avatar;
     closePopup(popupEditUserPic);
   }).catch((err) => {
     console.log(err);
+  }).finally(() => {
     buttonSubmit.textContent = 'Сохранение';
-    closePopup(popupEditUserPic);
   });
 }
 
 formProfile.addEventListener('submit', handleProfileFormSubmit);
 formPlace.addEventListener('submit', handlePlaceFormSubmit);
-formChangeAvatar.addEventListener('submit', handleUserPicSubmit)
+formChangeAvatar.addEventListener('submit', handleUserPicSubmit);
 
 buttonEditProfile.addEventListener('click', openPopupProfile);
 buttonAddPlace.addEventListener('click', openPopupPlace);
@@ -123,6 +117,7 @@ profileEditUserPic.addEventListener('click', openEditUserPic);
 enableValidation(validationOptions);
 
 getProfile().then(profileDatа => {
+  //console.log(profileDatа)
   createInitialProfile(profileDatа.name, profileDatа.about, profileDatа.avatar);
   getInitialCards().then(cards => {
     for (const card of cards) {

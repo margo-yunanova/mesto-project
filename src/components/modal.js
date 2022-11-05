@@ -9,7 +9,7 @@ export const popupEditUserPic = page.querySelector('.popup_el_user-pic');
 
 const popupCloseButtons = page.querySelectorAll('.popup__icon-close');
 
-const popups = page.querySelectorAll('.popup')
+const popups = page.querySelectorAll('.popup');
 
 export function closePopup(popup) {
   popup.classList.remove('popup_opened');
