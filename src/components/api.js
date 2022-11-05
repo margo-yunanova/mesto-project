@@ -4,46 +4,37 @@ const config = {
     'authorization': '3b45e7df-7420-41ed-89ad-84bab9964bf8',
     'Content-Type': 'application/json'
   }
-}
+};
+
+const _checkResponse = (res) => {
+  if (res.ok) {
+    return res.json();
+  }
+  return Promise.reject(`Ошибка: ${res.status}`);
+};
 
 export const getProfile = () => {
   return fetch(`${config.baseUrl}/users/me`, {
     headers: config.headers
-  }).then(res => {
-    if (res.ok) {
-      return res.json();
-    }
-    return Promise.reject(`Ошибка: ${res.status}`);
-  })
-}
+  }).then(_checkResponse);
+};
 
 export const getInitialCards = () => {
   return fetch(`${config.baseUrl}/cards`, {
     headers: config.headers
-  }).then(res => {
-    if (res.ok) {
-      //console.log(res.json())
-      return res.json();
-    }
-    return Promise.reject(`Ошибка: ${res.status}`);
-  })
-}
+  }).then(_checkResponse);
+};
 
 export const pushProfileUpdate = (profileName, profileBio) => {
- return fetch(`${config.baseUrl}/users/me`, {
+  return fetch(`${config.baseUrl}/users/me`, {
     method: 'PATCH',
     headers: config.headers,
     body: JSON.stringify({
       'name': profileName,
       'about': profileBio,
     })
-  }).then(res => {
-    if (res.ok) {
-      return res.json();
-    }
-    return Promise.reject(`Ошибка: ${res.status}`);
-  }).then(profileUpdate => console.log(profileUpdate));
-}
+  }).then(_checkResponse);
+};
 
 export const pushNewPlaceCard = (placeName, placeLink) => {
   return fetch(`${config.baseUrl}/cards`, {
@@ -53,52 +44,29 @@ export const pushNewPlaceCard = (placeName, placeLink) => {
       'name': placeName,
       'link': placeLink,
     })
-  }).then(res => {
-    if (res.ok) {
-      return res.json();
-    }
-    return Promise.reject(`Ошибка: ${res.status}`);
-  });
-}
+  }).then(_checkResponse);
+};
 
 export const deletePlaceCard = (cardId) => {
   return fetch(`${config.baseUrl}/cards/${cardId}`, {
     method: 'DELETE',
     headers: config.headers,
-  }).then(res => {
-    if (res.ok) {
-      //console.log(res.json())
-      return res.json();
-    }
-    return Promise.reject(`Ошибка: ${res.status}`);
-  })
-}
+  }).then(_checkResponse);
+};
 
 export const likeCard = (cardId) => {
   return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
     method: 'PUT',
     headers: config.headers,
-  }).then(res => {
-    if (res.ok) {
-      //console.log(res.json())
-      return res.json();
-    }
-    return Promise.reject(`Ошибка: ${res.status}`);
-  })
-}
+  }).then(_checkResponse);
+};
 
 export const deleteLikeCard = (cardId) => {
   return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
     method: 'DELETE',
     headers: config.headers,
-  }).then(res => {
-    if (res.ok) {
-      //console.log(res.json())
-      return res.json();
-    }
-    return Promise.reject(`Ошибка: ${res.status}`);
-  })
-}
+  }).then(_checkResponse);
+};
 
 export const updateUserPic = (userPicLink) => {
   return fetch(`${config.baseUrl}/users/me/avatar`, {
@@ -107,11 +75,5 @@ export const updateUserPic = (userPicLink) => {
     body: JSON.stringify({
       'avatar': userPicLink
     })
-  }).then(res => {
-    if (res.ok) {
-      //console.log(res.json())
-      return res.json();
-    }
-    return Promise.reject(`Ошибка: ${res.status}`);
-  })
-}
+  }).then(_checkResponse);
+};

@@ -1,9 +1,9 @@
-import '../pages/index.css'
-import { getProfile, getInitialCards, pushProfileUpdate, pushNewPlaceCard, updateUserPic } from './api'
-import { buttonEditProfile, buttonAddPlace, page } from './utils'
-import { renderCard, createNewCard } from './card'
-import { closePopup, popupElProfile, popupElPlace, popupEditUserPic, openPopup, formItemName, formItemBio } from './modal'
-import { enableValidation, clearError } from './validate'
+import '../pages/index.css';
+import { getProfile, getInitialCards, pushProfileUpdate, pushNewPlaceCard, updateUserPic } from './api';
+import { buttonEditProfile, buttonAddPlace, page } from './utils';
+import { renderCard, createNewCard } from './card';
+import { closePopup, popupElProfile, popupElPlace, popupEditUserPic, openPopup, formItemName, formItemBio } from './modal';
+import { enableValidation, clearError } from './validate';
 
 const profileName = page.querySelector('.profile__name');
 const profileBio = page.querySelector('.profile__bio');
@@ -65,23 +65,24 @@ function openPopupPlace() {
 
 function handleProfileFormSubmit(evt) {
   evt.preventDefault();
-  const buttonSubmit = evt.target.querySelector('.form__submit-button');
-  profileName.textContent = formItemName.value;
-  profileBio.textContent = formItemBio.value;
+  const buttonSubmit = evt.submitter;
   buttonSubmit.textContent = 'Сохранение...';
-  pushProfileUpdate(profileName.textContent, profileBio.textContent).then(profile => {
+  pushProfileUpdate(formItemName.value, formItemBio.value).then(profile => {
+    profileName.textContent = profile.name;
+    profileBio.textContent = profile.about;
     buttonSubmit.textContent = 'Сохранение';
     closePopup(popupElProfile);
   }).catch((err) => {
     console.log(err);
+  }).finally(() => {
     buttonSubmit.textContent = 'Сохранение';
-    closePopup(popupElProfile);
+    //closePopup(popupElProfile);
   });
 }
 
 function handlePlaceFormSubmit(evt) {
   evt.preventDefault();
-  const buttonSubmit = evt.target.querySelector('.form__submit-button');
+  const buttonSubmit = evt.submitter;
   buttonSubmit.textContent = 'Сохранение...';
   pushNewPlaceCard(formElPlaceTitle.value, formElPlaceLink.value).then(card => {
     renderCard(createNewCard(card, true));
@@ -90,8 +91,9 @@ function handlePlaceFormSubmit(evt) {
     formPlace.reset();
   }).catch((err) => {
     console.log(err);
+  }).finally(() => {
     buttonSubmit.textContent = 'Сохранение';
-    closePopup(popupElPlace);
+    // closePopup(popupElPlace);
     formPlace.reset();
   });
 }
@@ -106,14 +108,15 @@ function handleUserPicSubmit(evt) {
     closePopup(popupEditUserPic);
   }).catch((err) => {
     console.log(err);
+  }).finally(() => {
     buttonSubmit.textContent = 'Сохранение';
-    closePopup(popupEditUserPic);
+    // closePopup(popupEditUserPic);
   });
 }
 
 formProfile.addEventListener('submit', handleProfileFormSubmit);
 formPlace.addEventListener('submit', handlePlaceFormSubmit);
-formChangeAvatar.addEventListener('submit', handleUserPicSubmit)
+formChangeAvatar.addEventListener('submit', handleUserPicSubmit);
 
 buttonEditProfile.addEventListener('click', openPopupProfile);
 buttonAddPlace.addEventListener('click', openPopupPlace);
@@ -123,6 +126,7 @@ profileEditUserPic.addEventListener('click', openEditUserPic);
 enableValidation(validationOptions);
 
 getProfile().then(profileDatа => {
+  console.log(profileDatа)
   createInitialProfile(profileDatа.name, profileDatа.about, profileDatа.avatar);
   getInitialCards().then(cards => {
     for (const card of cards) {
@@ -134,3 +138,19 @@ getProfile().then(profileDatа => {
 }).catch((err) => {
   console.log(err);
 });
+
+
+
+// Promise.all([getProfile(), getInitialCards()])
+//   .then(res => {
+//      {name, about, avatar}, {owner}  = res;
+//   })// тут деструктурируете ответ от сервера, чтобы было понятнее, что пришло
+//   .then(([profileDatа, cards]) => {
+//       сreateInitialProfile(profileDatа.name, profileDatа.about, profileDatа.avatar); // тут установка данных пользователя
+//       for (const card of cards) {
+//         renderCard(createNewCard(card, card.owner._id === profileDatа._id)); // и тут отрисовка карточек
+//       }
+//   })
+//   .catch(err => {
+//     console.log(err); // тут ловим ошибку
+//   });
