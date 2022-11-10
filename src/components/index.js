@@ -72,7 +72,7 @@ function handleProfileFormSubmit(evt) {
   }).catch((err) => {
     console.log(err);
   }).finally(() => {
-    buttonSubmit.textContent = 'Сохранение'
+    buttonSubmit.textContent = 'Сохранение';
   });
 }
 
@@ -116,16 +116,27 @@ profileEditUserPic.addEventListener('click', openEditUserPic);
 
 enableValidation(validationOptions);
 
-getProfile().then(profileDatа => {
-  //console.log(profileDatа)
-  createInitialProfile(profileDatа.name, profileDatа.about, profileDatа.avatar);
-  getInitialCards().then(cards => {
+// getProfile().then(profileDatа => {
+//   //console.log(profileDatа)
+//   createInitialProfile(profileDatа.name, profileDatа.about, profileDatа.avatar);
+//   getInitialCards().then(cards => {
+//     for (const card of cards) {
+//       renderCard(createNewCard(card, card.owner._id === profileDatа._id));
+//     }
+//   }).catch((err) => {
+//     console.log(err);
+//   });
+// }).catch((err) => {
+//   console.log(err);
+// });
+
+
+Promise.all([getProfile(), getInitialCards()])
+  .then(([profileDatа, cards]) => {
+    createInitialProfile(profileDatа.name, profileDatа.about, profileDatа.avatar);
     for (const card of cards) {
       renderCard(createNewCard(card, card.owner._id === profileDatа._id));
     }
   }).catch((err) => {
     console.log(err);
   });
-}).catch((err) => {
-  console.log(err);
-});
