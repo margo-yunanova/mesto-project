@@ -4,6 +4,7 @@ import { buttonEditProfile, buttonAddPlace, page } from './utils';
 import { renderCard, createNewCard } from './card';
 import { closePopup, popupElProfile, popupElPlace, popupEditUserPic, openPopup, formItemName, formItemBio } from './modal';
 import { enableValidation, clearError } from './validate';
+import { Section } from './section';
 
 const profileName = page.querySelector('.profile__name');
 const profileBio = page.querySelector('.profile__bio');
@@ -120,9 +121,25 @@ api.getProfile().then(profileDatа => {
   //console.log(profileDatа)
   createInitialProfile(profileDatа.name, profileDatа.about, profileDatа.avatar);
   api.getInitialCards().then(cards => {
+    /*
     for (const card of cards) {
       renderCard(createNewCard(card, card.owner._id === profileDatа._id));
     }
+    */
+    const cardSection = new Section ({
+      data: cards,
+      renderer: (item) => {
+        if (item) {
+          return createNewCard(item);
+        };
+      }
+    },
+      '.places'
+    );
+    const data = cardSection.renderItems();
+    data.forEach(item => {
+      cardSection.addItem(item);
+    })
   }).catch((err) => {
     console.log(err);
   });
