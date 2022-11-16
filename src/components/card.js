@@ -1,6 +1,6 @@
 import { expandImage } from './index'
 import { page } from './utils'
-import { likeCard, deleteLikeCard, deletePlaceCard } from './api'
+import { api } from './api'
 
 
 const placeContainer = page.querySelector('.places');
@@ -9,14 +9,14 @@ const placeElement = page.querySelector('#place-template').content.querySelector
 function toggleLike(evt) {
   const place = evt.target.closest('.place');
   if (evt.target.classList.contains('place__icon-like_active')) {
-    deleteLikeCard(place.dataset.id).then(card => {
+    api.deleteLikeCard(place.dataset.id).then(card => {
       place.querySelector('.place__like-counter').textContent = card.likes.length;
       evt.target.classList.remove('place__icon-like_active');
     }).catch((err) => {
       console.log(err);
     });
   } else {
-    likeCard(place.dataset.id).then(card => {
+    api.likeCard(place.dataset.id).then(card => {
       place.querySelector('.place__like-counter').textContent = card.likes.length;
       evt.target.classList.add('place__icon-like_active');
     }).catch((err) => {
@@ -26,7 +26,7 @@ function toggleLike(evt) {
 }
 
 function deleteCard(evt) {
-  deletePlaceCard(evt.target.closest('.place').dataset.id).then(() => {
+  api.deletePlaceCard(evt.target.closest('.place').dataset.id).then(() => {
     deleteCardFromMarkup(evt.target.closest('.place'));
   }).catch((err) => {
     console.log(err);

@@ -1,5 +1,5 @@
 import '../pages/index.css';
-import { getProfile, getInitialCards, pushProfileUpdate, pushNewPlaceCard, updateUserPic } from './api';
+import { api } from './api';
 import { buttonEditProfile, buttonAddPlace, page } from './utils';
 import { renderCard, createNewCard } from './card';
 import { closePopup, popupElProfile, popupElPlace, popupEditUserPic, openPopup, formItemName, formItemBio } from './modal';
@@ -65,7 +65,7 @@ function handleProfileFormSubmit(evt) {
   evt.preventDefault();
   const buttonSubmit = evt.submitter;
   buttonSubmit.textContent = 'Сохранение...';
-  pushProfileUpdate(formItemName.value, formItemBio.value).then(profile => {
+  api.pushProfileUpdate(formItemName.value, formItemBio.value).then(profile => {
     profileName.textContent = profile.name;
     profileBio.textContent = profile.about;
     closePopup(popupElProfile);
@@ -80,7 +80,7 @@ function handlePlaceFormSubmit(evt) {
   evt.preventDefault();
   const buttonSubmit = evt.submitter;
   buttonSubmit.textContent = 'Сохранение...';
-  pushNewPlaceCard(formElPlaceTitle.value, formElPlaceLink.value).then(card => {
+  api.pushNewPlaceCard(formElPlaceTitle.value, formElPlaceLink.value).then(card => {
     renderCard(createNewCard(card, true));
     closePopup(popupElPlace);
     formPlace.reset();
@@ -95,7 +95,7 @@ function handleUserPicSubmit(evt) {
   evt.preventDefault();
   const buttonSubmit = evt.target.querySelector('.form__submit-button');
   buttonSubmit.textContent = 'Сохранение...';
-  updateUserPic(formElUserPicLink.value).then(profile => {
+  api.updateUserPic(formElUserPicLink.value).then(profile => {
     profileUserPic.src = profile.avatar;
     closePopup(popupEditUserPic);
   }).catch((err) => {
@@ -116,10 +116,10 @@ profileEditUserPic.addEventListener('click', openEditUserPic);
 
 enableValidation(validationOptions);
 
-getProfile().then(profileDatа => {
+api.getProfile().then(profileDatа => {
   //console.log(profileDatа)
   createInitialProfile(profileDatа.name, profileDatа.about, profileDatа.avatar);
-  getInitialCards().then(cards => {
+  api.getInitialCards().then(cards => {
     for (const card of cards) {
       renderCard(createNewCard(card, card.owner._id === profileDatа._id));
     }
