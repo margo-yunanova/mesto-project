@@ -1,7 +1,7 @@
 import '../pages/index.css';
 import { api } from './api';
 import { buttonEditProfile, buttonAddPlace, page } from './utils';
-import { renderCard, createNewCard } from './card';
+import { Card } from './card';
 import { closePopup, popupElProfile, popupElPlace, popupEditUserPic, openPopup, formItemName, formItemBio } from './modal';
 import { enableValidation, clearError } from './validate';
 import { Section } from './section';
@@ -50,10 +50,10 @@ function openEditUserPic() {
   openPopup(popupEditUserPic);
 }
 
-export function expandImage(evt) {
-  popupImage.src = evt.target.src;
-  popupImage.alt = evt.target.alt;
-  popupSubtitle.textContent = evt.target.closest('.place').querySelector('.place__title').textContent;
+function expandImage(image, title) {
+  popupImage.src = image;
+  popupImage.alt = title;
+  popupSubtitle.textContent = title;
   openPopup(popupElImage);
 }
 
@@ -81,15 +81,19 @@ function handlePlaceFormSubmit(evt) {
   evt.preventDefault();
   const buttonSubmit = evt.submitter;
   buttonSubmit.textContent = 'Сохранение...';
-  api.pushNewPlaceCard(formElPlaceTitle.value, formElPlaceLink.value).then(card => {
-    renderCard(createNewCard(card, true));
-    closePopup(popupElPlace);
-    formPlace.reset();
-  }).catch((err) => {
-    console.log(err);
-  }).finally(() => {
-    buttonSubmit.textContent = 'Сохранение';
-  });
+  api.pushNewPlaceCard(formElPlaceTitle.value, formElPlaceLink.value)
+    .then(card => {
+      const cardItem = new Card(card, '#place-template', expandImage);
+      document.querySelector('.places').append(cardItem.create());
+      closePopup(popupElPlace);
+      formPlace.reset();
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
+      buttonSubmit.textContent = 'Сохранение';
+    });
 }
 
 function handleUserPicSubmit(evt) {
@@ -119,27 +123,14 @@ enableValidation(validationOptions);
 
 api.getProfile().then(profileDatа => {
   //console.log(profileDatа)
+  sessionStorage.setItem('userId', profileDatа._id);
   createInitialProfile(profileDatа.name, profileDatа.about, profileDatа.avatar);
   api.getInitialCards().then(cards => {
-    /*
     for (const card of cards) {
-      renderCard(createNewCard(card, card.owner._id === profileDatа._id));
+      const cardItem = new Card(card, '#place-template', expandImage);
+      document.querySelector('.places').append(cardItem.create());;
     }
-    */
-    const cardSection = new Section ({
-      data: cards,
-      renderer: (item) => {
-        if (item) {
-          return createNewCard(item);
-        };
-      }
-    },
-      '.places'
-    );
-    const data = cardSection.renderItems();
-    data.forEach(item => {
-      cardSection.addItem(item);
-    })
+
   }).catch((err) => {
     console.log(err);
   });

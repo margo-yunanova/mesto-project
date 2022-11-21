@@ -1,61 +1,108 @@
-import { expandImage } from './index'
-import { page } from './utils'
 import { api } from './api'
 
+export class Card {
+  static placeSelector = '.place';
+  #userId;
+  #card;
+  #templateSelector;
+  #handleCardClick;
+  #place;
+  #placeTitle;
+  #placeImage;
+  #placeLike;
+  #placeLikeCounter;
+  #placeTrash;
 
-const placeContainer = page.querySelector('.places');
-const placeElement = page.querySelector('#place-template').content.querySelector('.place');
+  constructor (card, templateSelector, handleCardClick) {
+    this.#card = card;
+    this.#templateSelector = templateSelector;
+    this.#handleCardClick = handleCardClick;
+  }
 
-function toggleLike(evt) {
-  const place = evt.target.closest('.place');
-  if (evt.target.classList.contains('place__icon-like_active')) {
-    api.deleteLikeCard(place.dataset.id).then(card => {
-      place.querySelector('.place__like-counter').textContent = card.likes.length;
-      evt.target.classList.remove('place__icon-like_active');
-    }).catch((err) => {
-      console.log(err);
-    });
-  } else {
-    api.likeCard(place.dataset.id).then(card => {
-      place.querySelector('.place__like-counter').textContent = card.likes.length;
-      evt.target.classList.add('place__icon-like_active');
-    }).catch((err) => {
-      console.log(err);
+  create() {
+    this.#place = document
+      .querySelector(this.#templateSelector)
+      .content
+      .querySelector(this.constructor.placeSelector)
+      .cloneNode(true);
+    this.#placeTitle = this.#place.querySelector('.place__title');
+    this.#placeImage = this.#place.querySelector('.place__image');
+    this.#placeLike = this.#place.querySelector('.place__icon-like');
+    this.#placeLikeCounter = this.#place.querySelector('.place__like-counter');
+    this.#placeTrash = this.#place.querySelector('.place__icon-trash');
+    this.#userId = sessionStorage.getItem('userId');
+
+    this.#placeTitle.textContent = this.#card.name;
+    this.#placeImage.src = this.#card.link;
+    this.#placeImage.alt = this.#card.name;
+    this.#writeLikeCount(this.#countLikes(this.#card));
+    if (this.#isILikeCard(this.#card)) {
+      this.#toggleLikeClass();
+    }
+    this.#setEventListeners();
+    return this.#place;
+  }
+
+  #toggleLike() {
+    if (this.#placeLike.classList.contains('place__icon-like_active')) {
+      api.deleteLikeCard(this.#card._id)
+        .then((card) => {
+          this.#writeLikeCount(this.#countLikes(card));
+          this.#toggleLikeClass();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      api.likeCard(this.#card._id)
+        .then(card => {
+          this.#writeLikeCount(this.#countLikes(card));
+          this.#toggleLikeClass();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }
+
+  #deleteCard() {
+    api.deletePlaceCard(this.#card._id)
+      .then(() => {
+        this.#deleteCardFromMarkup();
+      })
+      .catch((err) => {
+        console.log(err);
     });
   }
-}
 
-function deleteCard(evt) {
-  api.deletePlaceCard(evt.target.closest('.place').dataset.id).then(() => {
-    deleteCardFromMarkup(evt.target.closest('.place'));
-  }).catch((err) => {
-    console.log(err);
-  });
-}
-
-function deleteCardFromMarkup (cardElement) {
-  cardElement.remove();
-}
-
-export function createNewCard(card, isMyCard) {
-  const place = placeElement.cloneNode(true);
-  const placeImage = place.querySelector('.place__image');
-  const placeLikeCounter = place.querySelector('.place__like-counter');
-  place.querySelector('.place__title').textContent = card.name;
-  placeImage.src = card.link;
-  placeImage.alt = `фотография ${card.name}`;
-  place.dataset.id = `${card._id}`;
-  placeLikeCounter.textContent = card.likes.length;
-  if (!isMyCard) {
-    place.querySelector('.place__icon-trash').classList.add('place__icon-trash_inactive');
+  #setEventListeners () {
+    if (this.#card.owner._id === this.#userId) {
+      this.#placeTrash.addEventListener('click', () => {this.#deleteCard();});
+    } else {
+      this.#placeTrash.remove();
+    };
+    this.#placeLike.addEventListener('click', () => {this.#toggleLike();});
+    this.#placeImage.addEventListener('click', () => {this.#handleCardClick(this.#placeImage.src, this.#placeTitle.textContent);});
   }
-  place.querySelector('.place__icon-like').addEventListener('click', toggleLike);
-  place.querySelector('.place__icon-trash').addEventListener('click', deleteCard);
-  placeImage.addEventListener('click', expandImage);
-  return place;
-}
 
-export function renderCard(card) {
-  placeContainer.prepend(card);
-}
+  #countLikes (card) {
+    return card.likes.length;
+  }
 
+  #writeLikeCount (likeSum) {
+    this.#placeLikeCounter.textContent = likeSum;
+  }
+
+  #toggleLikeClass () {
+    this.#placeLike.classList.toggle('place__icon-like_active');
+  }
+
+  #isILikeCard (card) {
+    return card.likes.some(like => like._id == this.#userId);
+  }
+
+  #deleteCardFromMarkup () {
+    this.#place.remove();
+  }
+
+};
