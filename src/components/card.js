@@ -2,7 +2,8 @@ import { api } from './api'
 
 export class Card {
   static placeSelector = '.place';
-  #userId;
+
+  #userId = sessionStorage.getItem('userId');
   #card;
   #templateSelector;
   #handleCardClick;
@@ -20,6 +21,19 @@ export class Card {
   }
 
   create() {
+    this.#getCard();
+    this.#placeTitle.textContent = this.#card.name;
+    this.#placeImage.src = this.#card.link;
+    this.#placeImage.alt = this.#card.name;
+    this.#writeLikeCount(this.#countLikes(this.#card));
+    if (this.#isILikeCard(this.#card)) {
+      this.#toggleLikeClass();
+    }
+    this.#setEventListeners();
+    return this.#place;
+  }
+
+  #getCard() {
     this.#place = document
       .querySelector(this.#templateSelector)
       .content
@@ -30,17 +44,6 @@ export class Card {
     this.#placeLike = this.#place.querySelector('.place__icon-like');
     this.#placeLikeCounter = this.#place.querySelector('.place__like-counter');
     this.#placeTrash = this.#place.querySelector('.place__icon-trash');
-    this.#userId = sessionStorage.getItem('userId');
-
-    this.#placeTitle.textContent = this.#card.name;
-    this.#placeImage.src = this.#card.link;
-    this.#placeImage.alt = this.#card.name;
-    this.#writeLikeCount(this.#countLikes(this.#card));
-    if (this.#isILikeCard(this.#card)) {
-      this.#toggleLikeClass();
-    }
-    this.#setEventListeners();
-    return this.#place;
   }
 
   #toggleLike() {

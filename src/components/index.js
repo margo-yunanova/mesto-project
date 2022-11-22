@@ -83,8 +83,13 @@ function handlePlaceFormSubmit(evt) {
   buttonSubmit.textContent = 'Сохранение...';
   api.pushNewPlaceCard(formElPlaceTitle.value, formElPlaceLink.value)
     .then(card => {
-      const cardItem = new Card(card, '#place-template', expandImage);
-      document.querySelector('.places').append(cardItem.create());
+      const newSection = new Section({
+        items: card,
+        renderer: (item) => {
+          const cardItem = new Card(item, '#place-template', expandImage);
+          newSection.addItem(cardItem.create());
+      }},'.places');
+      newSection.renderItems();
       closePopup(popupElPlace);
       formPlace.reset();
     })
@@ -126,11 +131,15 @@ api.getProfile().then(profileDatа => {
   sessionStorage.setItem('userId', profileDatа._id);
   createInitialProfile(profileDatа.name, profileDatа.about, profileDatа.avatar);
   api.getInitialCards().then(cards => {
-    for (const card of cards) {
-      const cardItem = new Card(card, '#place-template', expandImage);
-      document.querySelector('.places').append(cardItem.create());;
-    }
-
+    const newSection = new Section({
+      items: cards,
+      renderer: (items) => {
+        items.forEach(item => {
+          const cardItem = new Card(item, '#place-template', expandImage);
+          newSection.addItem(cardItem.create());
+        });
+    }},'.places');
+    newSection.renderItems();
   }).catch((err) => {
     console.log(err);
   });
