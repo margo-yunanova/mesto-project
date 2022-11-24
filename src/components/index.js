@@ -1,6 +1,6 @@
 import '../pages/index.css';
 import { api } from './Api';
-import { buttonEditProfile, buttonAddPlace, page } from './Utils';
+import { buttonEditProfile, buttonAddPlace, page } from './utils';
 import Card from './Card';
 import Section from './Section';
 import PopupWithForm from './PopupWithForm';
