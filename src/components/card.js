@@ -1,6 +1,6 @@
-import { api } from './api'
+import { api } from './Api'
 
-export class Card {
+export default class Card {
   static placeSelector = '.place';
 
   #userId = sessionStorage.getItem('userId');

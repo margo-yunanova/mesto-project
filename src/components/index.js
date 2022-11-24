@@ -1,8 +1,8 @@
 import '../pages/index.css';
-import { api } from './api';
-import { buttonEditProfile, buttonAddPlace, page } from './utils';
-import { Card } from './card';
-import { Section } from './section';
+import { api } from './Api';
+import { buttonEditProfile, buttonAddPlace, page } from './Utils';
+import Card from './Card';
+import Section from './Section';
 import PopupWithForm from './PopupWithForm';
 import PopupWithImage from './PopupWithImage';
 import FormValidator from './FormValidator';
