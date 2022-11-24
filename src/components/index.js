@@ -94,13 +94,12 @@ profileEditUserPic.addEventListener('click', () => {
   popupProfileEditUserPic.open();
 });
 
-
-
-api.getProfile().then(profileDatа => {
-  //console.log(profileDatа)
-  sessionStorage.setItem('userId', profileDatа._id);
-  createInitialProfile(profileDatа.name, profileDatа.about, profileDatа.avatar);
-  api.getInitialCards().then(cards => {
+Promise.all([
+  api.getProfile(),
+  api.getInitialCards() ])
+  .then(([profileDatа, cards])=>{
+    sessionStorage.setItem('userId', profileDatа._id);
+    createInitialProfile(profileDatа.name, profileDatа.about, profileDatа.avatar);
     const newSection = new Section({
       items: cards,
       renderer: (items) => {
@@ -110,9 +109,7 @@ api.getProfile().then(profileDatа => {
         });
     }},'.places');
     newSection.renderItems();
-  }).catch((err) => {
-    console.log(err);
-  });
-}).catch((err) => {
+  })
+  .catch((err)=>{
   console.log(err);
-});
+})
