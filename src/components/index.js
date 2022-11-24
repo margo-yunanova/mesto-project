@@ -16,6 +16,11 @@ const validationOptions = {
   inputErrorClass: 'form__item_type_error',
   errorClass: 'form__item-error_active'
 };
+const placesSection = new Section(
+  (item) => {
+  const cardItem = new Card(item, '#place-template', expandImage);
+  placesSection.addItem(cardItem.create());
+  },'.places');
 
 const userInfo = new UserInfo({
   name: '.profile__name',
@@ -48,13 +53,7 @@ function handleProfileFormSubmit({ username, userbio }) {
 
 function handlePlaceFormSubmit({ placetitle, placelink }) {
   return api.pushNewPlaceCard(placetitle, placelink).then(card => {
-    const newSection = new Section({
-      items: card,
-      renderer: (item) => {
-        const cardItem = new Card(item, '#place-template', expandImage);
-        newSection.addItem(cardItem.create());
-    }},'.places');
-    newSection.renderItems();
+    placesSection.renderItem(card);
   });
 }
 
@@ -99,16 +98,10 @@ Promise.all([
   .then(([profileDatа, cards])=>{
     sessionStorage.setItem('userId', profileDatа._id);
     userInfo.setUserInfo(profileDatа.name, profileDatа.about);
-    userInfo.setUserAvatar(profileDatа.avatar)
-    const newSection = new Section({
-      items: cards,
-      renderer: (items) => {
-        items.forEach(item => {
-          const cardItem = new Card(item, '#place-template', expandImage);
-          newSection.addItem(cardItem.create());
-        });
-    }},'.places');
-    newSection.renderItems();
+    userInfo.setUserAvatar(profileDatа.avatar);
+    cards.forEach((card) => {
+      placesSection.renderItem(card);
+    });
   })
   .catch((err)=>{
   console.log(err);
