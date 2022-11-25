@@ -47,25 +47,16 @@ export default class Card {
   }
 
   #toggleLike() {
-    if (this.#placeLike.classList.contains('place__icon-like_active')) {
-      api.deleteLikeCard(this.#card._id)
-        .then((card) => {
-          this.#writeLikeCount(this.#countLikes(card));
-          this.#toggleLikeClass();
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    } else {
-      api.likeCard(this.#card._id)
-        .then(card => {
-          this.#writeLikeCount(this.#countLikes(card));
-          this.#toggleLikeClass();
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
+    const likePromise = this.#placeLike.classList.contains('place__icon-like_active') ?
+      api.deleteLikeCard(this.#card._id) :
+      api.likeCard(this.#card._id);
+    likePromise.then((card) => {
+      this.#writeLikeCount(this.#countLikes(card));
+      this.#toggleLikeClass();
+    })
+    .catch((err) => {
+      console.log(err);
+    });
   }
 
   #deleteCard() {
