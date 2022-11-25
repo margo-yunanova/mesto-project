@@ -6,6 +6,7 @@ import Section from './Section';
 import PopupWithForm from './PopupWithForm';
 import PopupWithImage from './PopupWithImage';
 import FormValidator from './FormValidator';
+import UserInfo from './UserInfo';
 
 const validationOptions = {
   formSelector: '.form',
@@ -21,6 +22,12 @@ const placesSection = new Section(
   placesSection.addItem(cardItem.create());
   },'.places');
 
+const userInfo = new UserInfo({
+  name: '.profile__name',
+  bio: '.profile__bio',
+  avatar: '.profile__userpic'
+});
+
 const popupProfile = new PopupWithForm('.popup_el_profile', handleProfileFormSubmit);
 const popupPlace = new PopupWithForm('.popup_el_place', handlePlaceFormSubmit);
 const popupProfileEditUserPic = new PopupWithForm('.popup_el_user-pic', handleUserPicSubmit);
@@ -30,17 +37,8 @@ const formValidatorProfile = new FormValidator(validationOptions, page.querySele
 const formValidatorPlace = new FormValidator(validationOptions, page.querySelector('.popup_el_place .form'));
 const formValidatorAvatar = new FormValidator(validationOptions, page.querySelector('.popup_el_user-pic .form'));
 
-const profileName = page.querySelector('.profile__name');
-const profileBio = page.querySelector('.profile__bio');
 const profileUserPic = page.querySelector('.profile__userpic');
 const profileEditUserPic = page.querySelector('.profile__edit-userpic');
-
-
-function createInitialProfile(name, bio, userPic) {
-  profileName.textContent = name;
-  profileBio.textContent = bio;
-  profileUserPic.src = userPic;
-}
 
 
 function expandImage(image, title) {
@@ -49,8 +47,7 @@ function expandImage(image, title) {
 
 function handleProfileFormSubmit({ username, userbio }) {
   return api.pushProfileUpdate(username, userbio).then(profile => {
-    profileName.textContent = profile.name;
-    profileBio.textContent = profile.about;
+    userInfo.setUserInfo(profile.name, profile.about);
   });
 }
 
@@ -77,8 +74,9 @@ popupExpandImage.setEventListeners();
 
 buttonEditProfile.addEventListener('click', () => {
   const { inputList: [username, userbio] } = popupProfile;
-  username.value = profileName.textContent;
-  userbio.value = profileBio.textContent;
+  const {name, bio} = userInfo.getUserInfo();
+  username.value = name;
+  userbio.value = bio;
   formValidatorProfile.clearError();
   popupProfile.open();
 });
@@ -93,12 +91,14 @@ profileEditUserPic.addEventListener('click', () => {
   popupProfileEditUserPic.open();
 });
 
+
 Promise.all([
   api.getProfile(),
   api.getInitialCards() ])
   .then(([profileDatа, cards])=>{
     sessionStorage.setItem('userId', profileDatа._id);
-    createInitialProfile(profileDatа.name, profileDatа.about, profileDatа.avatar);
+    userInfo.setUserInfo(profileDatа.name, profileDatа.about);
+    userInfo.setUserAvatar(profileDatа.avatar);
     cards.forEach((card) => {
       placesSection.renderItem(card);
     });
