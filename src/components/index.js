@@ -39,7 +39,6 @@ const formValidatorProfile = new FormValidator(validationOptions, page.querySele
 const formValidatorPlace = new FormValidator(validationOptions, page.querySelector('.popup_el_place .form'));
 const formValidatorAvatar = new FormValidator(validationOptions, page.querySelector('.popup_el_user-pic .form'));
 
-const profileUserPic = page.querySelector('.profile__userpic');
 const profileEditUserPic = page.querySelector('.profile__edit-userpic');
 
 
@@ -57,7 +56,7 @@ function handlePlaceFormSubmit({ placetitle, placelink }) {
 
 function handleUserPicSubmit({ avatar }) {
   return api.updateUserPic(avatar).then(profile => {
-    profileUserPic.src = profile.avatar;
+    userInfo.setUserAvatar(profile.avatar);
   });
 }
 
