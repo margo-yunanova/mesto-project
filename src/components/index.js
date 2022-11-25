@@ -26,9 +26,11 @@ const validationOptions = {
 };
 const sectionPlaces = new Section(
   (item) => {
-  const cardItem = new Card(item, '#place-template', expandImage);
-  sectionPlaces.addItem(cardItem.create());
-  },'.places');
+    const cardItem = new Card(item, '#place-template', () => {
+      popupExpandImage.open(item.link, item.name);
+    });
+    sectionPlaces.addItem(cardItem.create());
+  }, '.places');
 
 const userInfo = new UserInfo({
   name: '.profile__name',
@@ -45,16 +47,11 @@ const formValidatorProfile = new FormValidator(validationOptions, page.querySele
 const formValidatorPlace = new FormValidator(validationOptions, page.querySelector('.popup_el_place .form'));
 const formValidatorAvatar = new FormValidator(validationOptions, page.querySelector('.popup_el_user-pic .form'));
 
-const profileUserPic = page.querySelector('.profile__userpic');
 const profileEditUserPic = page.querySelector('.profile__edit-userpic');
 
 
-function expandImage(image, title) {
-  popupExpandImage.open(image, title, title);
-}
-
-function handleProfileFormSubmit({ username, userbio }) {
-  return api.pushProfileUpdate(username, userbio).then(profile => {
+function handleProfileFormSubmit({ username, about }) {
+  return api.pushProfileUpdate(username, about).then(profile => {
     userInfo.setUserInfo(profile.name, profile.about);
   });
 }
@@ -65,9 +62,9 @@ function handlePlaceFormSubmit({ placetitle, placelink }) {
   });
 }
 
-function handleUserPicSubmit({ 'user-pic-link': userPicLink }) {
-  return api.updateUserPic(userPicLink).then(profile => {
-    profileUserPic.src = profile.avatar;
+function handleUserPicSubmit({ avatar }) {
+  return api.updateUserPic(avatar).then(profile => {
+    userInfo.setUserAvatar(profile.avatar);
   });
 }
 
@@ -82,7 +79,7 @@ popupExpandImage.setEventListeners();
 
 buttonEditProfile.addEventListener('click', () => {
   const { inputList: [username, userbio] } = popupProfile;
-  const {name, bio} = userInfo.getUserInfo();
+  const { name, bio } = userInfo.getUserInfo();
   username.value = name;
   userbio.value = bio;
   formValidatorProfile.clearError();
@@ -102,8 +99,8 @@ profileEditUserPic.addEventListener('click', () => {
 
 Promise.all([
   api.getProfile(),
-  api.getInitialCards() ])
-  .then(([profileDatа, cards])=>{
+  api.getInitialCards()])
+  .then(([profileDatа, cards]) => {
     sessionStorage.setItem('userId', profileDatа._id);
     userInfo.setUserInfo(profileDatа.name, profileDatа.about);
     userInfo.setUserAvatar(profileDatа.avatar);
@@ -111,6 +108,6 @@ Promise.all([
       sectionPlaces.renderItem(card);
     });
   })
-  .catch((err)=>{
-  console.log(err);
-})
+  .catch((err) => {
+    console.log(err);
+  });

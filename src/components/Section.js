@@ -8,7 +8,7 @@ export default class Section {
     this.renderer(item);
   }
   addItem (item) {
-      this.container.prepend(item);
+    this.container.prepend(item);
   };
 
 };
