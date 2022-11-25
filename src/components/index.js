@@ -18,8 +18,10 @@ const validationOptions = {
 };
 const placesSection = new Section(
   (item) => {
-  const cardItem = new Card(item, '#place-template', expandImage);
-  placesSection.addItem(cardItem.create());
+    const cardItem = new Card(item, '#place-template', () => {
+      popupExpandImage.open(item.link, item.name)
+  });
+    placesSection.addItem(cardItem.create());
   },'.places');
 
 const userInfo = new UserInfo({
@@ -41,24 +43,20 @@ const profileUserPic = page.querySelector('.profile__userpic');
 const profileEditUserPic = page.querySelector('.profile__edit-userpic');
 
 
-function expandImage(image, title) {
-  popupExpandImage.open(image, title, title);
-}
-
-function handleProfileFormSubmit({ username, userbio }) {
-  return api.pushProfileUpdate(username, userbio).then(profile => {
+function handleProfileFormSubmit({ username, about }) {
+  return api.pushProfileUpdate(username, about).then(profile => {
     userInfo.setUserInfo(profile.name, profile.about);
   });
 }
 
-function handlePlaceFormSubmit({ placetitle, placelink }) {
-  return api.pushNewPlaceCard(placetitle, placelink).then(card => {
+function handlePlaceFormSubmit({ placename, placelink }) {
+  return api.pushNewPlaceCard(placename, placelink).then(card => {
     placesSection.renderItem(card);
   });
 }
 
-function handleUserPicSubmit({ 'user-pic-link': userPicLink }) {
-  return api.updateUserPic(userPicLink).then(profile => {
+function handleUserPicSubmit({ avatar }) {
+  return api.updateUserPic(avatar).then(profile => {
     profileUserPic.src = profile.avatar;
   });
 }
