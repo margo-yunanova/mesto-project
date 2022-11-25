@@ -1,4 +1,4 @@
-class Api {
+export default class Api {
 
   constructor (options) {
     this.options = options;
@@ -76,11 +76,4 @@ class Api {
       })
     }).then(this.#checkPromiseResult);
   };
-}
-export const api = new Api({
-  baseUrl: 'https://mesto.nomoreparties.co/v1/plus-cohort-16',
-  headers: {
-    authorization: '3b45e7df-7420-41ed-89ad-84bab9964bf8',
-    'Content-Type': 'application/json'
-  }
-});
+};

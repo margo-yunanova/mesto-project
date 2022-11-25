@@ -1,5 +1,5 @@
 import '../pages/index.css';
-import { api } from './Api';
+import Api from './Api';
 import { buttonEditProfile, buttonAddPlace, page } from './utils';
 import Card from './Card';
 import Section from './Section';
@@ -7,6 +7,14 @@ import PopupWithForm from './PopupWithForm';
 import PopupWithImage from './PopupWithImage';
 import FormValidator from './FormValidator';
 import UserInfo from './UserInfo';
+
+export const api = new Api({
+  baseUrl: 'https://mesto.nomoreparties.co/v1/plus-cohort-16',
+  headers: {
+    authorization: '3b45e7df-7420-41ed-89ad-84bab9964bf8',
+    'Content-Type': 'application/json'
+  }
+});
 
 const validationOptions = {
   formSelector: '.form',

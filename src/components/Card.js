@@ -1,4 +1,4 @@
-import { api } from './Api'
+import { api } from './index'
 
 export default class Card {
   static cardTypeSelector = '.place';
