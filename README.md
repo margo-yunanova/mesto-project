@@ -28,7 +28,20 @@
 Изменена навигация по проекту - js код поделён на модули, сборку кода выполняет Webpack.
 Настроена минификация и транспиляция JS бабелем и минификация CSS с автоматическим добавлением вендорных префиксов postcss.
 
+## Четвертый этап проекта - портирование проекта на ООП
 
+В рамках портирования проекта были созданы ES6-классы: `Api.js, Сard.js , FormValidator.js, Section.js , Popup.js , PopupWithForm.js , PopupWithImage.js , UserInfo.js `.
+Каждый класс выполняет строго одну задачу и для описания взаимодействия между классами используется слабое связываение.
+
+### Описание классов:
+
+- В классе `Api`описаны запросы к серверу. Каждый метод возвращает объект `Promise`, все операции над `DOM` включены внутрь цепочки промисов. Каждый `Promise` содержит обработку ошибок после обращения к серверу.
+- Класс `Card` создает карточку с текстом и и ссылкой на изображение.
+- Класс `FormValidator` настраивает валидацию полей формы: проверяет валидность поля, изменяет состояние кнопки `submit`, устанавливает обработчики.
+- Класс `Section` отвечает за отрисовку карточек на странице.
+- Класс `Popup` отвечает за открытие и закрытие попапа, по клику на иконку закрытия, оверлею, а также по клавише Esc.
+- Классы `PopupWithForm` и `PopupWithImage` наследуются от класса `Popup`. `PopupWithForm` собирает данные всех полей формы и добавляет обработчик `submit` формы. `PopupWithImage` по клику разворачивает карточку на весь экран.
+- Класс `UserInfo` отвечает за управление информацией о пользователе на странице.
 
 
 ## Полезные ссылки
@@ -40,4 +53,5 @@
 1. [Чеклист второго этапа](https://code.s3.yandex.net/web-developer/checklists-pdf/web-plus/checklist-4.pdf);
 1. [Техзадание первого этапа](https://code.s3.yandex.net/web-plus/static/second-month/mesto-project/index.html);
 1. [Техзадание второго этапа](https://code.s3.yandex.net/web-plus/static/third-month/mesto-project/index.html);
-1. [Техзадание третьего этапа](https://code.s3.yandex.net/web-developer/checklists-pdf/web-plus/checklist-8.pdf).
+1. [Техзадание третьего этапа](https://code.s3.yandex.net/web-developer/checklists-pdf/web-plus/checklist-8.pdf);
+1. [Техзадание четвертого этапа](https://code.s3.yandex.net/web-developer/checklists-pdf/web-plus/checklist-10.pdf).
