@@ -16,10 +16,10 @@ const validationOptions = {
   inputErrorClass: 'form__item_type_error',
   errorClass: 'form__item-error_active'
 };
-const placesSection = new Section(
+const sectionPlaces = new Section(
   (item) => {
   const cardItem = new Card(item, '#place-template', expandImage);
-  placesSection.addItem(cardItem.create());
+  sectionPlaces.addItem(cardItem.create());
   },'.places');
 
 const userInfo = new UserInfo({
@@ -53,7 +53,7 @@ function handleProfileFormSubmit({ username, userbio }) {
 
 function handlePlaceFormSubmit({ placetitle, placelink }) {
   return api.pushNewPlaceCard(placetitle, placelink).then(card => {
-    placesSection.renderItem(card);
+    sectionPlaces.renderItem(card);
   });
 }
 
@@ -100,7 +100,7 @@ Promise.all([
     userInfo.setUserInfo(profileDatа.name, profileDatа.about);
     userInfo.setUserAvatar(profileDatа.avatar);
     cards.forEach((card) => {
-      placesSection.renderItem(card);
+      sectionPlaces.renderItem(card);
     });
   })
   .catch((err)=>{
