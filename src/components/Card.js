@@ -1,7 +1,7 @@
 import { api } from './Api'
 
 export default class Card {
-  static placeSelector = '.place';
+  static cardTypeSelector = '.place';
 
   #userId = sessionStorage.getItem('userId');
   #card;
@@ -37,7 +37,7 @@ export default class Card {
     this.#place = document
       .querySelector(this.#templateSelector)
       .content
-      .querySelector(this.constructor.placeSelector)
+      .querySelector(this.constructor.cardTypeSelector)
       .cloneNode(true);
     this.#placeTitle = this.#place.querySelector('.place__title');
     this.#placeImage = this.#place.querySelector('.place__image');
