@@ -56,8 +56,8 @@ function handleProfileFormSubmit({ username, about }) {
   });
 }
 
-function handlePlaceFormSubmit({ placetitle, placelink }) {
-  return api.pushNewPlaceCard(placetitle, placelink).then(card => {
+function handlePlaceFormSubmit({ placename, placelink }) {
+  return api.pushNewPlaceCard(placename, placelink).then(card => {
     sectionPlaces.renderItem(card);
   });
 }
