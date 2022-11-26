@@ -57,10 +57,6 @@ const enableValidation = (validationOptions) => {
   }
 }
 
-enableValidation(validationOptions);
-console.log(formValidators)
-
-
 function handleProfileFormSubmit({ name, about }) {
   return api.pushProfileUpdate(name, about).then(profile => {
     userInfo.setUserInfo(profile.name, profile.about);
@@ -78,6 +74,8 @@ function handleUserPicSubmit({ avatar }) {
     userInfo.setUserAvatar(profile.avatar);
   });
 }
+
+enableValidation(validationOptions);
 
 popupProfile.setEventListeners();
 popupPlace.setEventListeners();
