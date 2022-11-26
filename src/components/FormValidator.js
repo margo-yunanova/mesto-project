@@ -49,7 +49,7 @@ export default class FormValidator {
     }
   }
 
-  clearError() {
+  resetValidation() {
     for (const input of this.inputList) {
       this.#hideInputError(input);
     }
