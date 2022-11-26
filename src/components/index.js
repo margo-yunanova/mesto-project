@@ -94,7 +94,7 @@ buttonAddPlace.addEventListener('click', () => {
 });
 
 profileEditUserPic.addEventListener('click', () => {
-  formValidators['avtarform'].resetValidation();
+  formValidators['avatarform'].resetValidation();
   popupProfileEditUserPic.open();
 });
 
