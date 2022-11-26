@@ -29,7 +29,7 @@ const sectionPlaces = new Section(
     const cardItem = new Card(item, '#place-template', () => {
       popupExpandImage.open(item.link, item.name);
     });
-    sectionPlaces.addItem(cardItem.create());
+    return cardItem.create();
   }, '.places');
 
 const userInfo = new UserInfo({
@@ -65,7 +65,7 @@ function handleProfileFormSubmit({ name, about }) {
 
 function handlePlaceFormSubmit({ placename, placelink }) {
   return api.pushNewPlaceCard(placename, placelink).then(card => {
-    sectionPlaces.renderItem(card);
+    sectionPlaces.addItem(card);
   });
 }
 
@@ -107,7 +107,7 @@ Promise.all([
     userInfo.setUserInfo(profileDatа.name, profileDatа.about);
     userInfo.setUserAvatar(profileDatа.avatar);
     cards.forEach((card) => {
-      sectionPlaces.renderItem(card);
+      sectionPlaces.addItem(card);
     });
   })
   .catch((err) => {
