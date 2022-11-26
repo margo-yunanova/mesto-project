@@ -17,6 +17,12 @@ export default class PopupWithForm extends Popup {
     return inputsValue;
   }
 
+  setInputValues(inputList) {
+    for (const input of this.inputList) {
+      input.value = inputList[input.name];
+    }
+  }
+
   close() {
     this.form.reset();
     super.close();

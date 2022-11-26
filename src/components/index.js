@@ -34,7 +34,7 @@ const sectionPlaces = new Section(
 
 const userInfo = new UserInfo({
   name: '.profile__name',
-  bio: '.profile__bio',
+  about: '.profile__bio',
   avatar: '.profile__userpic'
 });
 
@@ -43,15 +43,26 @@ const popupPlace = new PopupWithForm('.popup_el_place', handlePlaceFormSubmit);
 const popupProfileEditUserPic = new PopupWithForm('.popup_el_user-pic', handleUserPicSubmit);
 export const popupExpandImage = new PopupWithImage('.popup_el_image');
 
-const formValidatorProfile = new FormValidator(validationOptions, page.querySelector('.popup_el_profile .form'));
-const formValidatorPlace = new FormValidator(validationOptions, page.querySelector('.popup_el_place .form'));
-const formValidatorAvatar = new FormValidator(validationOptions, page.querySelector('.popup_el_user-pic .form'));
-
 const profileEditUserPic = page.querySelector('.profile__edit-userpic');
 
+const formValidators = {};
 
-function handleProfileFormSubmit({ username, about }) {
-  return api.pushProfileUpdate(username, about).then(profile => {
+const enableValidation = (validationOptions) => {
+  const formList = Array.from(document.querySelectorAll(validationOptions.formSelector));
+  for (const form of formList) {
+    const validator = new FormValidator(validationOptions, form);
+    const formName = form.getAttribute('name');
+    formValidators[formName] = validator;
+    validator.enableValidation();
+  }
+}
+
+enableValidation(validationOptions);
+console.log(formValidators)
+
+
+function handleProfileFormSubmit({ name, about }) {
+  return api.pushProfileUpdate(name, about).then(profile => {
     userInfo.setUserInfo(profile.name, profile.about);
   });
 }
@@ -68,31 +79,24 @@ function handleUserPicSubmit({ avatar }) {
   });
 }
 
-formValidatorProfile.enableValidation();
-formValidatorPlace.enableValidation();
-formValidatorAvatar.enableValidation();
-
 popupProfile.setEventListeners();
 popupPlace.setEventListeners();
 popupProfileEditUserPic.setEventListeners();
 popupExpandImage.setEventListeners();
 
 buttonEditProfile.addEventListener('click', () => {
-  const { inputList: [username, userbio] } = popupProfile;
-  const { name, bio } = userInfo.getUserInfo();
-  username.value = name;
-  userbio.value = bio;
-  formValidatorProfile.clearError();
+  popupProfile.setInputValues(userInfo.getUserInfo())
+  formValidators['profileform'].resetValidation();
   popupProfile.open();
 });
 
 buttonAddPlace.addEventListener('click', () => {
-  formValidatorPlace.clearError();
+  formValidators['placeform'].resetValidation();
   popupPlace.open();
 });
 
 profileEditUserPic.addEventListener('click', () => {
-  formValidatorAvatar.clearError();
+  formValidators['avtarform'].resetValidation();
   popupProfileEditUserPic.open();
 });
 
