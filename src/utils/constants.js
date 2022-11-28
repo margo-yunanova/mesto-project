@@ -31,11 +31,7 @@ export const validationOptions = {
 
 export const cardApi = {
   toggleLikeApi: (cardId, toggle) => {
-    if (toggle) {
-      return api.likeCard(cardId);
-    } else {
-      return api.deleteLikeCard(cardId);
-    }
+   return toggle ? api.likeCard(cardId) : api.deleteLikeCard(cardId);
   },
   deleteCardApi: (cardId) => {
     return api.deletePlaceCard(cardId);
