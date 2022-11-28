@@ -20,6 +20,7 @@ export function handleUserPicSubmit({ avatar }) {
     userInfo.setUserAvatar(profile.avatar);
   });
 }
+
 const enableValidation = (validationOptions) => {
   const formList = Array.from(document.querySelectorAll(validationOptions.formSelector));
   for (const form of formList) {
@@ -52,7 +53,6 @@ profileEditUserPic.addEventListener('click', () => {
   formValidators['avatarform'].resetValidation();
   popupProfileEditUserPic.open();
 });
-
 
 Promise.all([
   api.getProfile(),
