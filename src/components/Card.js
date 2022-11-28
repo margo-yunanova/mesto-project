@@ -1,9 +1,9 @@
-import { api } from './index'
-
 export default class Card {
   static cardTypeSelector = '.place';
 
   #userId = sessionStorage.getItem('userId');
+  #deleteCardApi;
+  #toggleLikeApi;
   #card;
   #templateSelector;
   #handleCardClick;
@@ -14,10 +14,12 @@ export default class Card {
   #placeLikeCounter;
   #placeTrash;
 
-  constructor (card, templateSelector, handleCardClick) {
+  constructor (card, templateSelector, handleCardClick, cardApi) {
     this.#card = card;
     this.#templateSelector = templateSelector;
     this.#handleCardClick = handleCardClick;
+    this.#deleteCardApi = cardApi.deleteCardApi;
+    this.#toggleLikeApi = cardApi.toggleLikeApi;
   }
 
   create() {
@@ -48,8 +50,8 @@ export default class Card {
 
   #toggleLike() {
     const likePromise = this.#placeLike.classList.contains('place__icon-like_active') ?
-      api.deleteLikeCard(this.#card._id) :
-      api.likeCard(this.#card._id);
+      this.#toggleLikeApi(this.#card._id, false) :
+      this.#toggleLikeApi(this.#card._id, true);
     likePromise.then((card) => {
       this.#writeLikeCount(this.#countLikes(card));
       this.#toggleLikeClass();
@@ -60,7 +62,7 @@ export default class Card {
   }
 
   #deleteCard() {
-    api.deletePlaceCard(this.#card._id)
+    this.#deleteCardApi(this.#card._id)
       .then(() => {
         this.#deleteCardFromMarkup();
       })

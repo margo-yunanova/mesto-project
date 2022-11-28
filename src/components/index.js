@@ -28,10 +28,22 @@ const sectionPlaces = new Section(
   (item) => {
     const cardItem = new Card(item, '#place-template', () => {
       popupExpandImage.open(item.link, item.name);
-    });
+    }, cardApi);
     return cardItem.create();
   }, '.places');
 
+const cardApi = {
+  toggleLikeApi: (cardId, toggle) => {
+    if (toggle) {
+      return api.likeCard(cardId);
+    } else {
+      return api.deleteLikeCard(cardId);
+    }
+  },
+  deleteCardApi: (cardId) => {
+    return api.deletePlaceCard(cardId);
+  }
+};
 const userInfo = new UserInfo({
   name: '.profile__name',
   about: '.profile__bio',
