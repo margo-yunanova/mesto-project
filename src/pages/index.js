@@ -1,6 +1,7 @@
 import './index.css';
 import {api, validationOptions, sectionPlaces, userInfo, popupProfile, popupPlace, popupProfileEditUserPic,
-  popupExpandImage, profileEditUserPic, formValidators, enableValidation, buttonEditProfile, buttonAddPlace} from '../utils/constants';
+  popupExpandImage, profileEditUserPic, formValidators, buttonEditProfile, buttonAddPlace} from '../utils/constants';
+import FormValidator from '../components/FormValidator';
 
 export function handleProfileFormSubmit({ name, about }) {
   return api.pushProfileUpdate(name, about).then(profile => {
@@ -19,6 +20,15 @@ export function handleUserPicSubmit({ avatar }) {
     userInfo.setUserAvatar(profile.avatar);
   });
 }
+const enableValidation = (validationOptions) => {
+  const formList = Array.from(document.querySelectorAll(validationOptions.formSelector));
+  for (const form of formList) {
+    const validator = new FormValidator(validationOptions, form);
+    const formName = form.getAttribute('name');
+    formValidators[formName] = validator;
+    validator.enableValidation();
+  }
+};
 
 enableValidation(validationOptions);
 

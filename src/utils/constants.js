@@ -3,13 +3,14 @@ import Card from '../components/Card';
 import Section from '../components/Section';
 import PopupWithForm from '../components/PopupWithForm';
 import PopupWithImage from '../components/PopupWithImage';
-import FormValidator from '../components/FormValidator';
 import UserInfo from '../components/UserInfo';
 import {handleProfileFormSubmit, handlePlaceFormSubmit, handleUserPicSubmit} from '../pages/index';
 
 export const page = document.querySelector('.page');
 export const buttonEditProfile = page.querySelector('.profile__edit-button');
 export const buttonAddPlace = page.querySelector('.profile__add-button');
+export const profileEditUserPic = page.querySelector('.profile__edit-userpic');
+export const formValidators = {};
 
 export const api = new Api({
   baseUrl: 'https://mesto.nomoreparties.co/v1/plus-cohort-16',
@@ -27,13 +28,6 @@ export const validationOptions = {
   inputErrorClass: 'form__item_type_error',
   errorClass: 'form__item-error_active'
 };
-export const sectionPlaces = new Section(
-  (item) => {
-    const cardItem = new Card(item, '#place-template', () => {
-      popupExpandImage.open(item.link, item.name);
-    }, cardApi);
-    return cardItem.create();
-  }, '.places');
 
 export const cardApi = {
   toggleLikeApi: (cardId, toggle) => {
@@ -47,6 +41,15 @@ export const cardApi = {
     return api.deletePlaceCard(cardId);
   }
 };
+
+export const sectionPlaces = new Section(
+  (item) => {
+    const cardItem = new Card(item, '#place-template', () => {
+      popupExpandImage.open(item.link, item.name);
+    }, cardApi);
+    return cardItem.create();
+  }, '.places');
+
 export const userInfo = new UserInfo({
   name: '.profile__name',
   about: '.profile__bio',
@@ -57,17 +60,3 @@ export const popupProfile = new PopupWithForm('.popup_el_profile', handleProfile
 export const popupPlace = new PopupWithForm('.popup_el_place', handlePlaceFormSubmit);
 export const popupProfileEditUserPic = new PopupWithForm('.popup_el_user-pic', handleUserPicSubmit);
 export const popupExpandImage = new PopupWithImage('.popup_el_image');
-
-export const profileEditUserPic = page.querySelector('.profile__edit-userpic');
-
-export const formValidators = {};
-
-export const enableValidation = (validationOptions) => {
-  const formList = Array.from(document.querySelectorAll(validationOptions.formSelector));
-  for (const form of formList) {
-    const validator = new FormValidator(validationOptions, form);
-    const formName = form.getAttribute('name');
-    formValidators[formName] = validator;
-    validator.enableValidation();
-  }
-};
