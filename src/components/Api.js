@@ -51,21 +51,21 @@ export default class Api {
       method: 'DELETE',
       headers: this.options.headers,
     });
-  };
+  }
 
   likeCard (cardId) {
     return this.#request(`${this.options.baseUrl}/cards/likes/${cardId}`, {
       method: 'PUT',
       headers: this.options.headers,
     });
-  };
+  }
 
   deleteLikeCard (cardId) {
     return this.#request(`${this.options.baseUrl}/cards/likes/${cardId}`, {
       method: 'DELETE',
       headers: this.options.headers,
     });
-  };
+  }
 
   updateUserPic (userPicLink) {
     return this.#request(`${this.options.baseUrl}/users/me/avatar`, {
@@ -75,6 +75,6 @@ export default class Api {
         'avatar': userPicLink
       })
     });
-  };
+  }
 
 };
