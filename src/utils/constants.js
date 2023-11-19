@@ -21,7 +21,7 @@ export const api = new Api({
   headers: {
     //  authorization: "3b45e7df-7420-41ed-89ad-84bab9964bf8",
     authorization:
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTVhNWY1MThkMzRmNTZmYWMxZTllYjAiLCJpYXQiOjE3MDA0MjE2NTAsImV4cCI6MTcwMTAyNjQ1MH0.aJliZfyE9bro5ZbBrcRQmyNdgRETkAjR08GNII72ibM",
+      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTVhNWY1MThkMzRmNTZmYWMxZTllYjAiLCJpYXQiOjE3MDA0MjE2NTAsImV4cCI6MTcwMTAyNjQ1MH0.aJliZfyE9bro5ZbBrcRQmyNdgRETkAjR08GNII72ibM",
     "Content-Type": "application/json",
   },
 });
