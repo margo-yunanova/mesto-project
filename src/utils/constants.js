@@ -17,7 +17,7 @@ export const profileEditUserPic = page.querySelector(".profile__edit-userpic");
 export const formValidators = {};
 
 export const api = new Api({
-  baseUrl: "http://api.mesto.margo.nomoredomainsmonster.ru",
+  baseUrl: "https://api.mesto.margo.nomoredomainsmonster.ru",
   headers: {
     //  authorization: "3b45e7df-7420-41ed-89ad-84bab9964bf8",
     authorization:
