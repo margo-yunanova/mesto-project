@@ -20,7 +20,7 @@ export const api = new Api({
   baseUrl: "https://api.mesto.margo.nomoredomainsmonster.ru",
   headers: {
     authorization:
-      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTVhNWY1MThkMzRmNTZmYWMxZTllYjAiLCJpYXQiOjE3MDA0MjE2NTAsImV4cCI6MTcwMTAyNjQ1MH0.aJliZfyE9bro5ZbBrcRQmyNdgRETkAjR08GNII72ibM",
+      "Bearer 20eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTY2NWRkM2FmMzc1YzlhYTE2YWU0MjYiLCJpYXQiOjE3MDEyMDgwMzgsImV4cCI6MTcwMTgxMjgzOH0.fgk_Xw0VRwXiHeC2xbYPGnzREY3EsaF67OovGl7Gxq4",
     "Content-Type": "application/json",
   },
 });
