@@ -4,6 +4,7 @@ const { DEPLOY_USER, DEPLOY_HOST, DEPLOY_PATH, DEPLOY_REF, DEPLOY_REPO } =
   process.env;
 
 module.exports = {
+  apps: [],
   deploy: {
     production: {
       user: DEPLOY_USER,
